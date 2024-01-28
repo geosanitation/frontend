@@ -39,5 +39,5 @@ To integrate basemaps, you'll need your own MapTiler key. If you don't have one 
 
 ### Special Thanks to...
 
-- [data-osm](https://github.com/data-osm) and the wonderfull projet of Karl Tayou
+- [data-osm](https://github.com/data-osm) and the wonderfull project of Karl Tayou
 - [ngx-admin](https://github.com/akveo/ngx-admin)
