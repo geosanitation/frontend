@@ -1,0 +1,69 @@
+<ng-container *ngIf="customStyle">
+  <mat-accordion>
+    <mat-expansion-panel [expanded]="false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ "groups.layers.symbology_edit.cluster.description" | translate }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="description-style">
+        <div class="text" [innerText]="customStyle.description"></div>
+        <div class="image">
+          <img [src]="environment.backendUrl + customStyle.icon" />
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</ng-container>
+
+<div fxLayout fxLayoutAlign="end" style="margin-bottom: 24px; margin-top: 24px">
+  <button
+    fxFlex="200px"
+    mat-flat-button
+    color="accent"
+    class="white"
+    (click)="addFields()"
+  >
+    {{ "groups.layers.symbology_edit.add_style.add_field" | translate }}
+  </button>
+</div>
+
+<ng-container *ngIf="listFields$ | async as listFields">
+  <form [formGroup]="form">
+    <div fxLayout="column" formArrayName="fields" style="max-height: 450px">
+      <div *ngFor="let field of fields.controls; let i = index">
+        <mat-card style="margin-bottom: 10px">
+          <div [formGroupName]="i" class="one-field" #containerColorPicker >
+            <mat-form-field appearance="outline" style="width: 50%">
+              <mat-label>
+                {{ "groups.layers.symbology_edit.add_style.field_name" | translate }}
+              </mat-label>
+              <mat-select formControlName="name">
+                <mat-option *ngFor="let f of listFields" [value]="f.name">
+                  {{ f.name }}
+                </mat-option>
+              </mat-select>
+              <mat-error>
+                {{ "groups.layers.symbology_edit.add_icon.category_error" | translate }}
+              </mat-error>
+            </mat-form-field>
+            <app-color-picker
+              [width]="'100%'"
+              style="display: block; padding: 20px; width: 50%"
+              [colorLabel]="'Couleur du champ'"
+              [colorForm]="field.get('color')"
+              [colorOutputFormat]="'hex'"
+              [container]="containerColorPicker"
+            ></app-color-picker>
+          </div>
+          <div fxLayout fxLayoutGap="15px" fxLayoutAlign="end">
+            <button mat-flat-button color="warn" (click)="removeField(i)">
+              <mat-icon>delete</mat-icon>
+              {{ "groups.layers.symbology_edit.add_style.delete_field" | translate }}
+            </button>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </form>
+</ng-container>

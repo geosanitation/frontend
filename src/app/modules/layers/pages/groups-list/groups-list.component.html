@@ -1,0 +1,31 @@
+<div class="btn-actions">
+  <button
+    nbButton
+    shape="round"
+    outline
+    status="primary"
+    (click)="onAddGroupInstance()"
+    *ngIf="store.user?.is_superuser"
+  >
+    <nb-icon icon="folder-add"></nb-icon
+    >{{ "groups.add_new_group" | translate }}
+  </button>
+</div>
+<div *ngIf="groups$ | async as groups" class="row group-list">
+  <ng-container *ngIf="groups.length > 0; else nogroup">
+    <div *ngFor="let group of groups" class="col-xxxl-3 col-md-6">
+      <app-group-item
+        [group]="group"
+        (editGroup)="onEditGroupInstance($event)"
+        (deleteGroup)="onDeleteGroupInstance($event)"
+      ></app-group-item>
+    </div>
+  </ng-container>
+  <ng-template #nogroup>
+    {{ "groups.no_group_found" | translate }}
+  </ng-template>
+</div>
+
+<!-- <ng-template #confirmationDialog let-data let-ref="dialogRef">
+
+</ng-template> -->

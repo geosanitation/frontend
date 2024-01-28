@@ -1,0 +1,42 @@
+<div class="header-container">
+  <div class="logo-container">
+    <a (click)="toggleSidebar()" href="#" class="sidebar-toggle">
+      <nb-icon icon="menu-2-outline"></nb-icon>
+    </a>
+    <a class="logo" href="#" (click)="navigateHome()"
+      >
+      <img src="assets/images/logo.png" alt="" width="200px">
+      </a
+    >
+  </div>
+</div>
+
+<div class="header-container">
+  <nb-actions size="small">
+    <!-- <nb-action class="control-item">
+      <nb-search type="rotate-layout"></nb-search>
+    </nb-action>
+    <nb-action class="control-item" icon="email-outline"></nb-action>
+    <nb-action class="control-item" icon="bell-outline"></nb-action> -->
+    <nb-action class="user-action" *ngIf="store.user; else nouser">
+      <nb-user
+        [nbContextMenu]="userMenu"
+        [onlyPicture]="userPictureOnly"
+        [showInitials]="true"
+        [name]="store.user.username"
+        [title]="store.user.email"
+        nbContextMenuTag="user-context-menu"
+      >
+      </nb-user>
+    </nb-action>
+  </nb-actions>
+
+  <ng-template #nouser>
+    <button nbButton shape="round" outline status="info" (click)="navigateLogin()">
+      <nb-icon icon="person"></nb-icon>
+    </button>
+  </ng-template>
+  <!-- <nb-select [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">
+    <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
+  </nb-select> -->
+</div>

@@ -1,0 +1,42 @@
+.right-side-dialog {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: 600px;
+
+    nb-card-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    nb-card-body {
+        .item-section:not(:last-child) {
+            border-bottom: 1px solid #d5d5d5;
+            margin-bottom: 20px;
+        }
+
+        .item-section {
+
+            div {
+                margin-bottom: 10px;
+            }
+
+            span {
+                margin-left: 20px;
+                text-align: justify;
+            }
+            .attributions {
+                white-space: pre-line;
+            }
+        }
+        .btn-actions {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+    }
+}

@@ -1,0 +1,99 @@
+<div class="main-map-container" style="padding: 0 !important">
+  <div id="map" class="map" #mapDiv></div>
+
+  <geosanitation-basemap-switcher
+    [left]="'10px'"
+    [bottom]="'calc(3em + var(--footer-height))'"
+    [map]="mainMap"
+  ></geosanitation-basemap-switcher>
+  <div class="map-tools-top">
+    <button
+      nbButton
+      shape="round"
+      size="small"
+      status="basic"
+      (click)="resetRotation()"
+      nbTooltipPlacement="left"
+      nbTooltipStatus="control"
+    >
+      <nb-icon
+        icon="navigation"
+        pack="eva"
+        [style.transform]="'rotate(' + getMapRotation() + 'deg)'"
+      ></nb-icon>
+    </button>
+    <button
+      *ngIf="store.user?.is_superuser"
+      nbButton
+      size="small"
+      shape="round"
+      status="info"
+      nbTooltipPlacement="left"
+      nbTooltipStatus="control"
+      (click)="onManagePicturesInstance()"
+    >
+      <nb-icon icon="list" pack="eva"></nb-icon>
+    </button>
+  </div>
+  <div class="map-tools-bottom">
+    <button
+      nbButton
+      size="small"
+      nbTooltipPlacement="left"
+      nbTooltipStatus="control"
+      [status]="geolocation.getTracking() ? 'primary': 'basic'"
+      (click)="switchGeolocation()"
+    >
+      <nb-icon icon="navigation-2" pack="eva"></nb-icon>
+    </button>
+
+    <button
+      nbButton
+      size="small"
+      nbTooltipPlacement="left"
+      nbTooltipStatus="control"
+      status="basic"
+      (click)="resetView()"
+    >
+      <nb-icon icon="home" pack="eva"></nb-icon>
+    </button>
+    <button
+      nbButton
+      size="small"
+      nbTooltipPlacement="left"
+      nbTooltipStatus="control"
+      status="basic"
+      (click)="zoomIn()"
+    >
+      <nb-icon icon="plus" pack="eva"></nb-icon>
+    </button>
+    <button
+      nbButton
+      size="small"
+      nbTooltipPlacement="left"
+      nbTooltipStatus="control"
+      status="basic"
+      (click)="zoomOut()"
+    >
+      <nb-icon icon="minus" pack="eva"></nb-icon>
+    </button>
+  </div>
+  <div class="map-tools-bottom-center">
+    <button
+      nbButton
+      size="large"
+      shape="round"
+      hero
+      nbTooltipPlacement="top"
+      nbTooltipStatus="control"
+      status="info"
+      (click)="onAddPictureInstance()"
+    >
+      <nb-icon icon="plus" pack="eva"></nb-icon>
+    </button>
+  </div>
+
+  <nb-layout-footer fixed>
+    <geosanitation-footer></geosanitation-footer>
+  </nb-layout-footer>
+</div>

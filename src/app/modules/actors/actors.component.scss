@@ -1,0 +1,13 @@
+.container {
+  padding: 20px;
+  max-width: initial;
+  .page-content {
+    // background: transparent !important;
+    background: white;
+    // padding: 20px;
+    box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2),
+      0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+    border-radius: 20px;
+    height: calc(100vh - 116px);
+  }
+}

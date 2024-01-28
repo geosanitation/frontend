@@ -1,0 +1,84 @@
+<nb-card
+  status="primary"
+  [nbSpinner]="form.disabled"
+  nbSpinnerSize="large"
+  nbSpinnerStatus="primary"
+>
+  <nb-card-header>
+    <span>
+      {{ "groups.layers.icon.update_icon" | translate }}
+    </span>
+    <button nbButton shape="round" (click)="close()">
+      <nb-icon icon="close"></nb-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="form" *ngIf="form as context">
+      <div style="text-align: center">
+        <img
+          [src]="url_prefix + icon.path"
+          style="height: 50px; width: 50px; border-radius: 0px"
+        />
+      </div>
+      <div class="form-group">
+        <label for="category" class="label">{{
+          "groups.layers.icon.category" | translate
+        }}</label>
+        <input
+          type="text"
+          nbInput
+          formControlName="category"
+          fullWidth
+          id="category"
+          [required]="true"
+          [attr.aria-invalid]="
+            context.get('category').invalid && context.get('category').touched
+              ? true
+              : null
+          "
+        />
+        <ng-container
+          *ngIf="
+            context.get('category').invalid && context.get('category').touched
+          "
+        >
+          <p
+            class="caption status-danger"
+            *ngIf="context.get('category').errors?.required"
+          >
+            {{ "groups.layers.icon.category_required" | translate }}
+          </p>
+        </ng-container>
+      </div>
+      <div class="form-group">
+        <label for="attribution" class="label">{{
+          "groups.layers.icon.image_attributions" | translate
+        }}</label>
+        <input
+          type="text"
+          nbInput
+          formControlName="attribution"
+          fullWidth
+          id="attribution"
+        />
+      </div>
+      <app-update-tags [type]="'icons'" [tagsForm]="form.get('tags')">
+      </app-update-tags>
+    </form>
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton (click)="close()" [disabled]="form.disabled">
+      {{ "cancel" | translate }}
+    </button>
+    <button
+      class="cancel"
+      nbButton
+      status="primary"
+      style="margin-left: 10px"
+      [disabled]="!form.valid || form.disabled"
+      (click)="onUpdateInstance()"
+    >
+      {{ "save" | translate }}
+    </button>
+  </nb-card-footer>
+</nb-card>

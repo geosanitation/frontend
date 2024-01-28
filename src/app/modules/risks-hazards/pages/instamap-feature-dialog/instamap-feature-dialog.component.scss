@@ -1,0 +1,54 @@
+@import "../../../../@theme/styles/themes";
+
+@include nb-install-component() {
+  nb-card {
+    box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2),
+      0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+    max-width: 60dvw;
+    nb-card-header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      ::ng-deep nb-user .user-name {
+        font-weight: 800;
+        color: var(--color-control-default) !important;
+      }
+
+      ::ng-deep nb-user .initials {
+        color: var(--color-control-default) !important;
+      }
+
+      ::ng-deep nb-user .user-title {
+        color: var(--color-control-default) !important;
+      }
+    }
+    nb-card-body {
+      img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+        border: 2px solid #e3e8f4;
+        border-radius: 16px;
+        // max-height: 500px;
+      }
+      a:hover {
+        cursor: pointer;
+      }
+      .description {
+        word-break: break-word;
+        margin-top: 10px;
+      }
+    }
+  }
+  @media screen and (max-width: 800px) {
+    nb-card {
+      max-width: 100dvw; /* The width is 100%, when the viewport is 800px or smaller */
+      height: 100dvh;
+    }
+  }
+}

@@ -1,0 +1,141 @@
+<form [formGroup]="form" *ngIf="form as context" class="content">
+    <mat-form-field appearance="outline" color="primary">
+      <mat-label>{{ "groups.layers.layer_name" | translate }}</mat-label>
+      <input matInput formControlName="name" type="text" name="name" />
+      <mat-error *ngIf="context.get('name').errors?.['required']">
+        {{ "groups.layers.layer_name_required" | translate }}
+      </mat-error>
+    </mat-form-field>
+    <div
+      class="fake-btn pointer"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+      fxLayoutGap="15px"
+      (click)="onAddIconInstance()"
+      [style.color]="this.form.get('icon').value ? '#3266ff' : '#787878'"
+    >
+      <div
+        fxFlex="40%"
+        fxLayout="row"
+        fxLayoutAlign="center center"
+        class="icon-container"
+      >
+        <i
+          fxLayout="row"
+          fxLayoutAlign="center center"
+          fxFlex="100%"
+          *ngIf="!this.form.get('icon').value"
+          class="fa-solid fa-circle-plus"
+        ></i>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center center"
+          mat-list-icon
+          fxFlex="100%"
+          *ngIf="this.form.get('svg_as_text').value"
+          [innerHTML]="transform(this.form.get('svg_as_text').value)"
+          class="couche-svg"
+        ></div>
+        <img
+          mat-list-icon
+          *ngIf="
+            !this.form.get('svg_as_text').value &&
+            this.form.get('icon_path').value
+          "
+          [src]="env.backendUrl + this.form.get('icon_path').value"
+          class="couche-img"
+        />
+      </div>
+      <span
+        fxFlex="60%"
+        style="font-size: 13pt; font-weight: 600; text-align: center"
+      >
+        {{ "groups.layers.define_icon" | translate }}
+      </span>
+    </div>
+  
+    <nb-accordion style="width: 70%">
+      <nb-accordion-item>
+        <nb-accordion-item-header>
+          {{ "groups.layers.change_source" | translate }} {{ layer.name }}
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+
+        <ng-container *ngIf="form.get('type_source').value == 'querry'; else sig">
+          <mat-form-field
+            appearance="outline"
+            style="display: none; width: 100% !important"
+          >
+            <mat-label style="padding-left: 10px">{{
+              "groups.layers.choose_db" | translate
+            }}</mat-label>
+            <mat-select formControlName="connection">
+              <mat-option
+                *ngFor="let con of connections$ | async"
+                [value]="con"
+                >{{ con }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" style="width: 100% !important">
+            <mat-label>{{ "groups.layers.queries" | translate }}</mat-label>
+            <mat-hint> {{ "groups.layers.queries_id_geom" | translate }} </mat-hint>
+            <textarea matInput formControlName="sql"></textarea>
+            <mat-error
+              *ngIf="form.invalid && form.errors && form.errors['sqlProblems']"
+            >
+              {{ "groups.layers.queries_id_geom_error" | translate }}
+            </mat-error>
+          </mat-form-field>
+        </ng-container>
+        <ng-template #sig>
+          <app-file-upload
+            style="width: 70%"
+            *ngIf="form.get('source')"
+            formControlName="source"
+            [multiple]="false"
+            [editSource]="true"
+          >
+          </app-file-upload>
+        </ng-template>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  
+    <div mat-dialog-actions class="actions">
+      <button
+        nbButton
+        size="small"
+        [disabled]="!form.valid"
+        status="primary"
+        (click)="onUpdateInstance()"
+      >
+        {{ "save" | translate }}
+      </button>
+  
+      <button
+        nbButton
+        size="small"
+        status="danger"
+        (click)="onDeleteInstance()"
+        [disabled]="layer.required"
+      >
+        {{ "groups.layers.remove_layer" | translate }}
+      </button>
+    </div>
+  
+
+    <button
+      nbButton
+      class="btn-download"
+      status="success"
+      size="large"
+      nbContextMenuTrigger="click"
+      [nbContextMenu]="downloadFormats"
+      nbContextMenuTag="download-layer-menu"
+    >
+      <nb-icon icon="download"></nb-icon>
+      {{ "map.attribute_tables.download_layer" | translate }}
+    </button>
+  </form>
+  

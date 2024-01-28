@@ -1,0 +1,851 @@
+import { BBox } from "@turf/helpers";
+import { Coordinate } from "ol/coordinate";
+
+/**
+ * Properties of a right menu
+ */
+export interface rightMenuInterface {
+  name: string;
+  tooltip: string;
+  active: boolean;
+  enable: boolean;
+  title: string;
+}
+
+/**
+ * interface for classes that represent a categorie of a couche
+ * @interface coucheInterface
+ */
+export interface categorieInterface {
+  /**
+   * Select statement of the querry
+   */
+  select: string | null;
+  /**
+   * Is the querry OSM in plain text ?
+   */
+  mode_sql: boolean;
+  /**
+   * Where satement of the querry if mode_sql is true
+   */
+  sql_complete: null | string;
+}
+
+/**
+ * interface for classes that represent a cle-val-osm of a couche
+ * @interface clesValOsmInterface
+ */
+export interface clesValOsmInterface {
+  /**
+   * Key
+   */
+  action: string;
+  /**
+   * Condition
+   */
+  condition: "AND" | "OR";
+  /**
+   * Id in DB
+   */
+  id: number;
+  /**
+   * Id of the categorie
+   */
+  id_cat: number;
+  /**
+   * Value of the key
+   */
+  nom: string;
+  /**
+   * Operateur to compare key and action
+   */
+  operateur: number;
+}
+
+/**
+ * interface for classes that represent a couche
+ * @interface coucheInterface
+ */
+export interface coucheInterface {
+  /**
+   * Extend of the layer if exists
+   * @example 40.91789245605469,29.5161103,40.91789245605469,29.5161103
+   */
+  bbox: string | null;
+  /**
+   * categorie of the layer
+   */
+  categorie: categorieInterface;
+  /**
+   * Is the layer in map ?
+   */
+  check: boolean;
+  /**
+   * Only if wms_type is OSM and categorie.mode_sql is false
+   * Expressions to define the querry for OSM
+   */
+  cles_vals_osm: Array<clesValOsmInterface> | null;
+  colonnes: Array<{ nom: string; champ: string }>;
+  contour_couleur: null;
+  /**
+   * total lenght of the data. If geom is  LineString
+   */
+  distance_totale: string | null;
+  file_json: null;
+  /**
+   * Geometry type
+   */
+  geom: "point" | "Polygon" | "LineString";
+  /**
+   * Categorie ID in DB
+   */
+  id_cat: number;
+  /**
+   * Table in DB
+   */
+  id_couche: string;
+  /**
+   * Identifiant in QGIS SERVER for WFS/WMS/WMTS
+   */
+  identifiant: string;
+  /**
+   * Path for icon type circular
+   */
+  img: string;
+  /**
+   * Id in DB
+   */
+  key_couche: number;
+  /**
+   * Path for icon type  square
+   */
+  logo_src: string | null;
+  /**
+   * Metadata
+   */
+  metadata: Array<any>;
+  /**
+   * name
+   */
+  nom: string;
+  /**
+   * Number of data in layer
+   */
+  number: number;
+  opacity: null;
+  params_files: {
+    /**
+     * Name of the categorie
+     */
+    nom_cat: string;
+    /**
+     * Is layer in a sous thematique ?
+     */
+    sous_thematiques: boolean;
+    /**
+     * Id of the couche in DB
+     */
+    key_couche: number;
+    /**
+     * id categorie
+     */
+    id_cat: number;
+  };
+  /**
+   * Projection of the layer
+   */
+  projection: null;
+  remplir_couleur: null;
+  status: false;
+  /**
+   * total area of the data. If geom is  Polygon
+   */
+  surface_totale: number | null;
+  /**
+   * Method to render layer
+   */
+  type_couche: "wms" | "wfs";
+  /**
+   * render layer in wms ?, if false, render layer in wfs
+   */
+  service_wms: boolean;
+  /**
+   * Url of QGIS SERVER
+   */
+  url: string;
+  /**
+   * If data is from OSM
+   */
+  wms_type: "osm" | null;
+  /**
+   * Zoom max
+   */
+  zmax: number;
+  /**
+   * Zoom min
+   */
+  zmin: number;
+}
+
+/**
+ * Interface for classes that represent a sous thematiaue
+ * @interface sousThematiqueInterface
+ */
+export interface sousThematiqueInterface {
+  active: boolean;
+  /**
+   * The layers
+   */
+  couches: Array<coucheInterface>;
+  id: number;
+  /**
+   * Id in DB
+   */
+  key: number;
+  /**
+   * Name
+   */
+  nom: string;
+}
+
+export interface groupInterface {
+  /**
+   *  background color
+   */
+  color: string | null;
+  /**
+   * Name
+   */
+  nom: string;
+  /**
+   * Path to the icon
+   */
+  img: string;
+}
+/**
+ * interface for classes that represent a thematique
+ * @interface groupThematiqueInterface
+ */
+export interface groupThematiqueInterface extends groupInterface {
+  id: number;
+  /**
+   * Identifiant in database
+   */
+  id_thematique: number;
+
+  /**
+   * Order to show
+   */
+  ordre: number;
+  /**
+   * shema in database
+   */
+  shema: string;
+  /**
+   * Sous thematiques
+   */
+  sous_thematiques: false | Array<sousThematiqueInterface>;
+  /**
+   * If sous_thematiques is false
+   * Couches
+   */
+  couches?: Array<coucheInterface>;
+}
+
+/**
+ * Interface for a carte
+ * @interface carteInterface
+ */
+export interface carteInterface {
+  /**
+   * Extend of the layer if exists
+   * @example 40.91789245605469,29.5161103,40.91789245605469,29.5161103
+   */
+  bbox: string | null;
+  /**
+   * Is layer in map ?
+   */
+  check: boolean;
+  commentaire: string;
+  geom: null;
+  /**
+   * Identifiant for WMS/WMTS
+   */
+  identifiant: null;
+  /**
+   * Path for icon
+   */
+  image_src: string;
+  /**
+   * Should this map interrogeable with a  get feature info ?
+   */
+  interrogeable: boolean;
+  /**
+   * Id in DB
+   */
+  key_couche: number;
+  /**
+   * Metadata
+   */
+  metadata: Array<any>;
+  /**
+   * Name
+   */
+  nom: string;
+  /**
+   * is it the principal map of the apps ?
+   */
+  principal: boolean;
+  /**
+   * Projection
+   */
+  projection: string | null;
+  /**
+   * Method to render
+   */
+  type: "xyz" | "WMS" | "PDF";
+  /**
+   * Url for wms/wmts
+   */
+  url: string;
+  /**
+   * Zoom max
+   */
+  zmax: string;
+  /**
+   * Zoom min
+   */
+  zmin: string;
+}
+
+// carteInterface.prototype['vv']=function () {
+//   console.log('hh')
+// }
+/**
+ * Interface for a sous carte
+ * @interface sousCarteIntgerface
+ */
+export interface sousCarteIntgerface {
+  active: false;
+  couches: Array<carteInterface>;
+  id: number;
+  /**
+   * Id in DB
+   */
+  key: number;
+  /**
+   * Name
+   */
+  nom: string;
+}
+
+/**
+ * interface for classes that represent a group of carte
+ * @interface groupCarteInterface
+ */
+export interface groupCarteInterface extends groupInterface {
+  id: number;
+  /**
+   * Identifiant in database
+   */
+  id_cartes: number;
+  /**
+   * Is this group the principal group of cartes
+   */
+  principal: boolean;
+  /**
+   * Sous thematiques
+   */
+  sous_cartes: false | Array<sousCarteIntgerface>;
+  /**
+   * If sous_cartes is false
+   * Couches
+   */
+  couches?: Array<carteInterface>;
+}
+
+/**
+ * Interface for a geograohic limit of the project
+ * @interface limitesAdminstratives
+ */
+export interface limitesAdminstratives {
+  /**
+   * Id in DB
+   */
+  id_limite: number;
+  /**
+   * Id of the associated couche
+   */
+  key_couche: number;
+  /**
+   * Name
+   */
+  nom: string;
+  /**
+   * Name of the table in DB
+   */
+  nom_table: string;
+  /**
+   * Is the associated couche in a sous thematique ?
+   */
+  sous_thematiques: boolean;
+}
+
+/**
+ * Interface for the configuration of the project
+ */
+export interface configProjetInterface {
+  /**
+   * Extent of the project
+   * Array of 4 length
+   * @example [-6880641.45274482, -2438421.01533876, 6215722.16260819, 6675534.94618776]
+   */
+  bbox: Array<Number>;
+  /**
+   * Geojson of the region of interest
+   */
+  roiGeojson: any;
+  /**
+   * Geographic limit of the project
+   */
+  limites: Array<limitesAdminstratives>;
+  /**
+   * Geosignets of the projects
+   */
+  geosignetsProject: geosignetsProjectInterface[];
+}
+
+/**
+ * Interface for the pre configure geosignets of the projects
+ */
+export interface geosignetsProjectInterface {
+  /**
+   * Is the geosignet active ?
+   */
+  active: boolean;
+  geometry: string;
+  /**
+   * Id in DB
+   */
+  id: number;
+  /**
+   * Name
+   */
+  nom: string;
+}
+
+/**
+ * User interface
+ */
+export interface User {
+  /**
+   * Name of the user
+   */
+  username: string;
+  id: number;
+  /**
+   * email of the user
+   */
+  email: string;
+}
+
+/**
+ * Interface of the model return when user  search a emprise
+ */
+export interface ResponseOfSerachLimitInterface {
+  /**
+   * DB table corresponding
+   */
+  table: string;
+  /**
+   * id DB of in the table
+   */
+  id: number;
+  /**
+   * name of the limit
+   */
+  limitName: string;
+  /**
+   * name
+   */
+  name: string;
+  ref: string;
+  geometry?: any;
+}
+
+export interface TagsIcon {
+  id: number;
+  name: string;
+}
+
+/**
+ * interface of a icon
+ */
+export interface Icon {
+  icon_id: number;
+  path: string;
+  name: string;
+  category: string;
+  icon?: File;
+  attribution: string;
+  svgContent?: string;
+  tags: Array<TagsIcon>;
+}
+
+export interface IconWithSVGContent extends Icon {
+  svgContent: string;
+}
+
+export type GeometryTypeProvider =
+  | "MultiLineString"
+  | "MultiPoint"
+  | "null"
+  | "MultiPolygon";
+/**
+ * interface of a vector provider
+ */
+export interface VectorProvider {
+  provider_vector_id?: number;
+  name: string;
+  /** the table where data are store */
+  table?: string;
+  /** the shema where data are store */
+  shema?: string;
+  geometry_type: GeometryTypeProvider;
+  /** url of the carto server */
+  url_server?: string;
+  path_qgis?: string;
+  /** identifiant of this ressource in the carto server */
+  id_server?: string;
+  /**extent of this ressource  */
+  extent?: [number, number, number, number];
+  z_min?: number;
+  z_max?: number;
+  /**
+   * number of feature of this ressources
+   */
+  count?: number;
+  /**
+   * total lenght of the ressource if geometry type is LineString
+   */
+  total_lenght?: number;
+  /**
+   * total area of the ressource if geometry type is Polygon
+   */
+  total_area?: number;
+  epsg?: number;
+  /**
+   * state of the data
+   */
+  state?: "good" | "not_working" | "action_require" | "unknow";
+  created_at?: string;
+  updated_at?: string;
+  /**
+   * number of download
+   */
+  download_number?: number;
+  /**
+   * Source that defined this provider
+   */
+  source?: "osm" | "querry" | "sigfile";
+  /**
+   * primary key field of the table
+   */
+  primary_key_field?: string;
+  join_tables? : string;
+}
+
+/**
+ * interface of an osm querry
+ */
+export interface Querry {
+  connection: string;
+  sql: string;
+  provider_vector_id: number;
+}
+/**
+ * Interface of a SIG File use to fill a provider
+ */
+export interface SigFile {
+  connection: string;
+  sigFile: string;
+  provider_vector_id: number;
+  created_at: string;
+  updated_at: string;
+}
+
+/**
+ * interface of an osm querry
+ */
+export interface OsmQuerry {
+  select: string;
+  where: string;
+  sql?: string;
+  provider_vector_id: number;
+}
+
+export interface CategoryStyle {
+  name: string;
+  expression: string;
+  operator: string;
+  PropertyName: string;
+  Literal: string;
+  sld:string
+  id:string
+}
+/**
+ * interface of a style
+ */
+export interface Style {
+  name: string;
+  provider_style_id: number;
+  provider_vector_id: number;
+  custom_style_id: number;
+  pictogram: string;
+  qml_file: string;
+  custom_style: CustomStyle;
+  description: string;
+  parameters: { [key: string]: string | number };
+  category: Array<CategoryStyle>;
+}
+
+/**
+ * Interface of a response from DB
+ */
+export interface HttpResponse {
+  error: boolean;
+  msg: string;
+  data: any;
+}
+
+/**
+ * Model to send a data in the preview modal
+ */
+export interface DataForPreview {
+  name: string;
+  url_server: string;
+  id_server: string;
+  extent: [number, number, number, number];
+  type: "wms" | "wmts";
+  style: Array<string>;
+  attributions?: string | Array<string>;
+  provider_vector_id: number;
+}
+
+/**
+ * interface of a map or profil
+ */
+export interface Map {
+  map_id: number;
+  name: string;
+  basemap_id: number;
+  basemaps: Array<number>;
+  description: string;
+}
+
+export interface Group {
+  group_id: number;
+  name: string;
+  color: string;
+  icon_path: string;
+  icon: Icon;
+  type_group: string;
+  is_visible: false;
+  map_id: number[];
+  has_required: boolean;
+  layers_count: number;
+}
+
+export interface GroupWithLayers extends Group {
+  layers: Array<Layer>;
+}
+
+export interface Layer {
+  layer_id?: number;
+  name?: string;
+  protocol_carto?: "wms" | "wfs" | "wmts";
+  color?: string;
+  icon_color?: string;
+  icon?: number;
+  icon_background?: boolean;
+  cercle_icon?: string;
+  square_icon?: string;
+  description?: string;
+  opacity?: boolean;
+  metadata?: boolean;
+  share?: boolean;
+  group?: number;
+  groupItem?: Group;
+  providers?: Array<LayerProviders>;
+  svg_as_text?: string;
+  file?: File;
+  sql?: string;
+  connection?: string;
+  type_source?: string;
+  icon_path?: string;
+  svg_as_text_square?: string;
+  checked?: boolean;
+  metadata_cap?: boolean;
+  created_at?: string;
+  updated_at?: string;
+  read?: boolean;
+  write?: boolean;
+  required?: boolean;
+  required_type?: string;
+}
+
+export interface LayerProviders {
+  id: number;
+  layer_id: number;
+  vs_id: number;
+  vp_id: number;
+  vp: VectorProvider;
+  vs: Style;
+  ordre: number;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface ReorderProvider {
+  id: number;
+  ordre: number;
+}
+
+export interface Tag {
+  id: number;
+  name: string;
+}
+
+export interface Metadata {
+  id?: number;
+  tags: Array<Tag>;
+  description: string;
+  layer: number;
+}
+
+export interface CustomStyle {
+  custom_style_id: number;
+  name: string;
+  description: string;
+  fucntion_name: string;
+  geometry_type: "MultiLineString" | "MultiPoint" | "MultiPolygon";
+  icon: string;
+}
+
+export interface EditStyle {
+  name?: string;
+  provider_vector_id: number;
+  color?: string;
+  icon_color?: string;
+  icon?: Icon;
+  icon_background?: boolean;
+  customStyle?: CustomStyle;
+  id_server?: string;
+  path_qgis?: string;
+  provider_style_id?: number;
+}
+
+/**
+ * interface of a field
+ */
+export interface Field {
+  name: string;
+  nillable: boolean;
+  type: string;
+}
+
+/**
+ * interface of a custom field
+ */
+export interface CustomField {
+  custom_field_id: number;
+  fieldtype: "text" | "number";
+  onglet: string;
+  name_field?: string;
+  id_server?: string;
+  path_qgis?: string;
+  alias_fr?: string;
+  alias_de?: string;
+  tooltip?: boolean;
+  displayed?: boolean;
+  search?: boolean;
+  order?: number;
+}
+
+/**
+ * Interface of the model return when user  search an entity
+ */
+export interface responseOfSerachEntityInterface {
+  layer: Layer;
+  coordinates_3857: Coordinate;
+  feature_id: number;
+  provider_vector_id: number;
+  /**
+   * name for display
+   */
+  display: string;
+}
+
+export interface FeatureProperties {
+  alias_fr: string;
+  alias_de: string;
+  displayed: boolean;
+  name: string;
+  tooltype: string;
+  value: any;
+  onglet: string;
+  order: number;
+}
+
+export interface imagettesOptionsOl {
+  layer: any;
+  source: any;
+  nom: string;
+  type: string;
+  visible: boolean;
+}
+
+export interface FeatureCount {
+  type: string;
+  timeStamp: string;
+  numberOfFeatures: number;
+}
+
+export interface DataJoinCount {
+  count?: number;
+  columns?: any;
+}
+
+export interface PrjResults {
+  accuracy: number;
+  area: string;
+  authority: string;
+  bbox: BBox;
+  code: string;
+  default_trans: Number;
+  kind: string;
+  name: string;
+  proj4: string;
+  trans: Array<number>;
+  unit: string;
+  wkt: string;
+}
+
+export interface ProjectionResult {
+  number_result: number;
+  results: Array<PrjResults>;
+  status: string;
+}
+
+export interface Parcelle {
+  id: number;
+  typeOption?: string;
+  [key: string]: any;
+  commune?: string;
+  idu?: string;
+  nom_commune?: string;
+  parcelle?: string;
+  proprietaire?: string;
+  section?: number;
+  surface?: number;
+}

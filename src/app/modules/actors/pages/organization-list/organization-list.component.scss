@@ -1,0 +1,51 @@
+.btn-actions {
+    display: flex;
+    padding: 20px 20px 0 0;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.organization-list {
+    margin: 20px;
+    .table-container {
+        height: calc(100vh - 310px);
+        overflow: auto;
+        table {
+            width: 100%;
+        }
+        .mat-column-email {
+            padding-left: 20px;
+        }
+        .mat-column-phone {
+            padding-left: 20px;
+            width: 150px;
+        }
+        .mat-column-address {
+            padding-left: 20px;
+        }
+        .mat-column-website {
+            padding-left: 20px;
+            width: 100px;
+        }
+        .mat-column-org_type {
+            padding-left: 20px;
+            width: 250px;
+        }
+    
+        tr.mat-row:hover {
+            cursor: pointer;
+            background: whitesmoke;
+        }
+    }
+}
+
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    /* number of lines to show */
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+}

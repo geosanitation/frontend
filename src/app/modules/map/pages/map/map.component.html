@@ -1,0 +1,139 @@
+<nb-layout class="map-layout">
+  <nb-sidebar right tag="map-sidebar" state="collapsed">
+    <nb-tabset fullWidth>
+      <nb-tab
+        tabIcon="layers"
+        style="padding: 20px; height: calc(100vh - 174px)"
+      >
+        <geosanitation-table-of-contents [map]="mainMap"></geosanitation-table-of-contents>
+      </nb-tab>
+      <nb-tab tabIcon="list" style="height: calc(100vh - 128px)">
+        <geosanitation-legend [map]="mainMap"></geosanitation-legend>
+      </nb-tab>
+    </nb-tabset>
+  </nb-sidebar>
+
+  <nb-layout-column style="padding: 0 !important">
+    <div class="map-content" style="margin: 0 !important">
+      <nb-card class="list-card">
+        <router-outlet></router-outlet>
+      </nb-card>
+      <div class="main-map-container" style="padding: 0 !important">
+        <div id="map" class="map" #mapDiv></div>
+
+        <geosanitation-basemap-switcher
+          [left]="'10px'"
+          [bottom]="'calc(48px + var(--footer-height))'"
+          [map]="mainMap"
+        ></geosanitation-basemap-switcher>
+        <div class="map-tools-top">
+          <button
+            nbButton
+            shape="round"
+            size="small"
+            status="basic"
+            (click)="resetRotation()"
+            nbTooltip="{{ 'map.tooltip.north' | translate }}"
+            nbTooltipPlacement="left"
+            nbTooltipStatus="control"
+          >
+            <nb-icon
+              icon="navigation"
+              pack="eva"
+              [style.transform]="'rotate(' + getMapRotation() + 'deg)'"
+            ></nb-icon>
+          </button>
+          <button
+            nbButton
+            size="small"
+            status="basic"
+            nbTooltip="{{ 'map.tooltip.layers' | translate }}"
+            nbTooltipPlacement="left"
+            nbTooltipStatus="control"
+            (click)="toggleMapSideBar()"
+          >
+            <nb-icon icon="layers" pack="eva"></nb-icon>
+          </button>
+          <!-- <button nbButton size="small" status="basic">
+            <nb-icon icon="printer" pack="eva"></nb-icon>
+          </button> -->
+        </div>
+        <div class="map-tools-bottom">
+          <button
+            nbButton
+            size="small"
+            nbTooltip="{{ 'map.tooltip.initial_zoom' | translate }}"
+            nbTooltipPlacement="left"
+            nbTooltipStatus="control"
+            status="basic"
+            (click)="resetView()"
+          >
+            <nb-icon icon="home" pack="eva"></nb-icon>
+          </button>
+          <button
+            nbButton
+            size="small"
+            nbTooltip="{{ 'map.tooltip.zoom_in' | translate }}"
+            nbTooltipPlacement="left"
+            nbTooltipStatus="control"
+            status="basic"
+            (click)="zoomIn()"
+          >
+            <nb-icon icon="plus" pack="eva"></nb-icon>
+          </button>
+          <button
+            nbButton
+            size="small"
+            nbTooltip="{{ 'map.tooltip.zoom_out' | translate }}"
+            nbTooltipPlacement="left"
+            nbTooltipStatus="control"
+            status="basic"
+            (click)="zoomOut()"
+          >
+            <nb-icon icon="minus" pack="eva"></nb-icon>
+          </button>
+        </div>
+
+        <nb-layout-footer fixed>
+          <geosanitation-footer></geosanitation-footer>
+        </nb-layout-footer>
+      </div>
+    </div>
+  </nb-layout-column>
+</nb-layout>
+
+<ng-template #sdaModal let-data>
+  <div style="max-height: 500px; max-width: 500px">
+    <h6>{{ data.properties["15. intit"] }}</h6>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <tbody>
+          <tr *ngFor="let row of sdaFields">
+            <th class="text-nowrap text-basic" scope="row">{{ row.alias }}</th>
+            <td *ngIf="row.name != '50. i:tot'" class="text-basic">
+              {{ data.properties[row.name] }}
+            </td>
+            <td *ngIf="row.name == '50. i:tot'" class="text-basic">
+              {{ toCurrency(data.properties[row.name]) }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #otherModal let-data>
+  <div style="max-height: 500px; max-width: 500px">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <tbody>
+          <tr *ngFor="let key of getKeys(data.properties)">
+            <th class="text-nowrap text-basic" scope="row">{{ key }}</th>
+            <td class="text-basic">{{ data.properties[key] }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-template>

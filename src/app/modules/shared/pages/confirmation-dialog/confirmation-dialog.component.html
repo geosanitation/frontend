@@ -1,0 +1,20 @@
+<nb-card>
+  <nb-card-header>{{ data.confirmationTitle }}</nb-card-header>
+  <nb-card-body>
+    {{ data.confirmationExplanation }}
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton (click)="close(true)">
+      {{ data.confirmText }}
+    </button>
+    <button
+      class="cancel"
+      nbButton
+      status="primary"
+      (click)="close(false)"
+      style="margin-left: 10px"
+    >
+      {{ data.cancelText }}
+    </button>
+  </nb-card-footer>
+</nb-card>

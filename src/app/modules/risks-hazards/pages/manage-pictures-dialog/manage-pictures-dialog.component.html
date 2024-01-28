@@ -1,0 +1,198 @@
+<nb-card
+  status="primary"
+  style="min-width: 60dvw"
+  [nbSpinner]="loading"
+  nbSpinnerSize="large"
+  nbSpinnerStatus="primary"
+>
+  <nb-card-header>
+    <span>{{ "risks_hazards.instamap.manage_posts" | translate }}</span>
+    <button nbButton shape="round" (click)="close(false)">
+      <nb-icon icon="close"></nb-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <div
+      *ngIf="publicPictures$ | async as publicPictures"
+      class="pictures-list"
+    >
+      <div class="row" [formGroup]="searchForm" style="align-items: center">
+        <div class="col-sm-8">
+          <div class="form-group">
+            <nb-form-field>
+              <nb-icon nbPrefix icon="search" pack="eva"></nb-icon>
+              <input
+                type="text"
+                nbInput
+                formControlName="searchWord"
+                fullWidth
+                id="searchWord"
+                placeholder="Rechercher"
+                shape="round"
+              />
+              <button
+                nbSuffix
+                nbButton
+                ghost
+                (click)="clearSearch()"
+                shape="round"
+              >
+                <nb-icon icon="close" pack="eva"></nb-icon>
+              </button>
+            </nb-form-field>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <nb-select
+              formControlName="is_approved"
+              id="is_approved"
+              fullWidth
+              placeholder="Filtrer par statut"
+              fieldSize="large"
+            >
+              <nb-option>Tout</nb-option>
+              <nb-option
+                *ngFor="let status of pics_status"
+                [value]="status.value"
+              >
+                {{ status.name }}
+              </nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div>
+      <div>
+        <ng-container *ngIf="publicPictures.length > 0; else nodata">
+          <div class="table-container">
+            <table
+              mat-table
+              [dataSource]="publicPictures"
+              matSort
+              matSortActive="updated_at"
+              matSortDisableClear
+              matSortDirection="desc"
+            >
+              <ng-container matColumnDef="image">
+                <th
+                  mat-header-cell
+                  mat-sort-header
+                  disableClear
+                  *matHeaderCellDef
+                >
+                  {{ "risks_hazards.instamap.image" | translate }}
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  [nbTooltip]="environment.backendUrl + element.image"
+                  nbTooltipPlacement="bottom"
+                  nbTooltipStatus="control"
+                >
+                  <span class="truncate">
+                    <a
+                      [href]="environment.backendUrl + element.image"
+                      target="_blank"
+                      (click)="$event.stopPropagation()"
+                      >{{ environment.backendUrl + element.image }}</a
+                    >
+                  </span>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef>
+                  {{ "risks_hazards.instamap.picture_description" | translate }}
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  [nbTooltip]="element.description"
+                  nbTooltipPlacement="bottom"
+                  nbTooltipStatus="control"
+                >
+                  <span class="truncate">
+                    {{ element.description }}
+                  </span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="uploader_name">
+                <th mat-header-cell *matHeaderCellDef>
+                  {{ "risks_hazards.instamap.uploader_name" | translate }}
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  <span class="truncate">
+                    {{ element.uploader_name }}
+                  </span>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="uploader_email">
+                <th mat-header-cell *matHeaderCellDef>
+                  {{ "risks_hazards.instamap.uploader_email" | translate }}
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  <span class="truncate">
+                    <a
+                      [href]="'mailto:' + element.uploader_email"
+                      (click)="$event.stopPropagation()"
+                      >{{ element.uploader_email }}</a
+                    >
+                  </span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="taken_at">
+                <th mat-header-cell *matHeaderCellDef>
+                  {{ "risks_hazards.instamap.taken_at" | translate }}
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  <span>
+                    {{ element.taken_at | date }}
+                  </span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="updated_at">
+                <th mat-header-cell *matHeaderCellDef>
+                  {{ "risks_hazards.instamap.updated_at" | translate }}
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  <span>
+                    {{ element.updated_at | date }}
+                  </span>
+                </td>
+              </ng-container>
+
+              <tr
+                mat-header-row
+                *matHeaderRowDef="displayedColumns; sticky: true"
+              ></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumns"
+                class="pointer"
+                (click)="
+                  onOpenPublicPictureInstance(row); $event.stopPropagation()
+                "
+              ></tr>
+            </table>
+          </div>
+          <mat-paginator
+            [length]="organisationCount"
+            [pageSizeOptions]="[10, 20, 50, 100]"
+            [itemsPerPageLabel]="'Nombre par page'"
+            [nextPageLabel]="'Page suivante'"
+            [previousPageLabel]="'Page précedente'"
+          >
+          </mat-paginator>
+        </ng-container>
+      </div>
+
+      <ng-template #nodata>
+        <span class="nodata">
+          {{ "risks_hazards.instamap.no_pictures_found" | translate }}</span
+        >
+      </ng-template>
+    </div>
+  </nb-card-body>
+</nb-card>

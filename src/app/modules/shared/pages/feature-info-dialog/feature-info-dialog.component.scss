@@ -1,0 +1,20 @@
+@import "../../../../@theme/styles/themes";
+
+@include nb-install-component() {
+  .feature-info-dialog {
+    box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2),
+      0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+    // position: absolute;
+    // top: 10%;
+    // right: 50px;
+    nb-card-header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+    nb-card-header:hover {
+      cursor: move;
+    }
+  }
+}

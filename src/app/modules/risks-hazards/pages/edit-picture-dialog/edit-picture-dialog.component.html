@@ -1,0 +1,86 @@
+<nb-card
+  status="primary"
+  size="giant"
+  style="min-width: 60dvw"
+  status="primary"
+  [nbSpinner]="isLoading"
+  nbSpinnerSize="large"
+  nbSpinnerStatus="primary"
+>
+  <nb-card-header>
+    <span>{{ "risks_hazards.instamap.post_picture" | translate }}</span>
+    <button nbButton shape="round" (click)="close(false)">
+      <nb-icon icon="close"></nb-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-6" style="text-align: center">
+        <img src="{{ environment.backendUrl + publicPicture.image }}" width="400px" />
+      </div>
+      <div class="col-sm-6">
+        <div
+          id="picture_upload_map"
+          class="picture_upload_map"
+          #pictureUpdloadMapDiv
+        ></div>
+
+        <div class="mt-3">
+          <span>
+            <strong
+              >{{ "risks_hazards.instamap.picture_description" | translate }} :
+            </strong>
+            {{ publicPicture.description }}
+          </span>
+        </div>
+
+        <div>
+          <span>
+            <strong
+              >{{ "risks_hazards.instamap.taken_at" | translate }} :
+            </strong>
+            {{ formatDate(publicPicture.taken_at) }}
+          </span>
+        </div>
+
+        <div>
+          <span>
+            <strong
+              >{{ "risks_hazards.instamap.uploader_name" | translate }} :
+            </strong>
+            {{ publicPicture.uploader_name }}
+          </span>
+        </div>
+
+        <div>
+          <span>
+            <strong
+              >{{ "risks_hazards.instamap.uploader_email" | translate }} :
+            </strong>
+            <a [href]="'mailto:' + publicPicture.uploader_email">{{
+              publicPicture.uploader_email
+            }}</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <button class="cancel" nbButton (click)="close(false)" [disabled]="isLoading">
+      {{ "cancel" | translate }}
+    </button>
+    <button nbButton status="warning" (click)="onReviewInstance(false)" [disabled]="isLoading">
+      {{ "reject" | translate }}
+    </button>
+    <button
+      *ngIf="!publicPicture.is_approved"
+      nbButton
+      status="success"
+      style="margin-left: 10px"
+      (click)="onReviewInstance(true)"
+      [disabled]="isLoading"
+    >
+      {{ "approve" | translate }}
+    </button>
+  </nb-card-footer>
+</nb-card>

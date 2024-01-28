@@ -1,0 +1,38 @@
+<ng-container *ngIf="group$ | async as group">
+  <nb-card-header>
+    <div class="header-container">
+      <button nbButton status="info" (click)="goBack()">
+        <nb-icon icon="arrow-back" pack="eva"></nb-icon>
+      </button>
+      <div class="group-label">
+        <div class="group-color" [style.background]="group.color"></div>
+        <span class="truncate">
+          {{ group.name }}
+        </span>
+      </div>
+    </div>
+  </nb-card-header>
+  <mat-selection-list>
+    <mat-list-option
+    *ngFor="let layer of group.layers"
+    [matTooltip]="layer.name"
+    matTooltipPosition="right"
+    [value]="layer"
+    [selected]="isLayerInMap(layer)"
+    [disabled]="shouldDisabled(layer)"
+    >
+      <img
+        mat-list-icon
+        [src]="env.backendUrl + layer.cercle_icon"
+        class="couche-img"
+      />
+      <span class="truncate">
+        {{ layer.name }}
+      </span>
+      <mat-divider></mat-divider>
+    </mat-list-option>
+    <ng-container *ngIf="group.layers.length == 0">
+      <p align="center" style="margin-top: 10px;">{{ 'groups.layers.no_layer_found' | translate }}</p>
+    </ng-container>
+  </mat-selection-list>
+</ng-container>

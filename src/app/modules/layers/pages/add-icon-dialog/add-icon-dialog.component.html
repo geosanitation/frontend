@@ -1,0 +1,45 @@
+<nb-card
+  status="primary"
+  [nbSpinner]="form.disabled"
+  nbSpinnerSize="large"
+  nbSpinnerStatus="primary"
+  style="width: 70vw;"
+>
+  <nb-card-header>
+    <span>
+      {{ "groups.layers.icon.edit_icon" | translate }}
+    </span>
+    <button nbButton shape="round" (click)="close()">
+      <nb-icon icon="close"></nb-icon>
+    </button>
+  </nb-card-header>
+
+  <nb-card-body>
+    <app-generate-icon
+      class="generate-icon"
+      [background]="form.get('icon_background')"
+      [iconColorForm]="form.get('icon_color')"
+      [backgroundColor]="form.get('color')"
+      [squareSvgAsText]="form.get('svg_as_text_square')"
+      [circleSvgAsText]="form.get('svg_as_text')"
+      [icon_id]="form.get('icon')"
+      [icon_path]="form.get('icon_path')"
+    ></app-generate-icon>
+  </nb-card-body>
+
+  <nb-card-footer>
+    <button nbButton (click)="close()" [disabled]="form.disabled">
+      {{ "cancel" | translate }}
+    </button>
+    <button
+      class="cancel"
+      nbButton
+      status="primary"
+      style="margin-left: 10px"
+      [disabled]="!form.valid || form.disabled"
+      (click)="onAddInstance()"
+    >
+      {{ "valid" | translate }}
+    </button>
+  </nb-card-footer>
+</nb-card>

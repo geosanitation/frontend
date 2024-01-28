@@ -1,0 +1,36 @@
+<ng-container *ngIf="group$ | async as group">
+  <div class="group-title" [style.background]="group.color">
+    <button
+      nbButton
+      shape="round"
+      (click)="router.navigate(['groups'])"
+    >
+      <nb-icon icon="arrow-back"></nb-icon>
+    </button>
+    <span>{{ group.name }}</span>
+  </div>
+  <div class="btn-actions">
+    <button
+      nbButton
+      shape="round"
+      outline
+      status="primary"
+      (click)="onAddLayerInstance(group)"
+      *ngIf="store.user?.is_superuser"
+    >
+      <nb-icon icon="file-add"></nb-icon
+      >{{ "groups.layers.add_layer" | translate }}
+    </button>
+  </div>
+  <div class="col layer-list">
+    <ng-container *ngIf="group.layers.length > 0; else nolayer">
+      <div *ngFor="let layer of group.layers" class="row-xxxl-3 row-md-6">
+        <geosanitation-layer-item [layer]="layer" (openLayer)="onOpenLayerInstance(layer)"></geosanitation-layer-item>
+      </div>
+    </ng-container>
+    <ng-template #nolayer>
+      {{ "groups.layers.no_layer_found" | translate }}
+    </ng-template>
+  </div>
+</ng-container>
+<router-outlet></router-outlet>

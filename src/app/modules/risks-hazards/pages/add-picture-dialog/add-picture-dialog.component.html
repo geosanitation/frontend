@@ -1,0 +1,230 @@
+<nb-card
+  status="primary"
+  size="giant"
+  style="min-width: 60dvw"
+  [nbSpinner]="form.disabled"
+  nbSpinnerSize="large"
+  nbSpinnerStatus="primary"
+>
+  <nb-card-header>
+    <span>{{ "risks_hazards.instamap.post_picture" | translate }}</span>
+    <button
+      nbButton
+      shape="round"
+      (click)="close(false)"
+      [disabled]="form.disabled"
+    >
+      <nb-icon icon="close"></nb-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="form" *ngIf="form as context">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="picture_upload_map" class="label">{{
+              "risks_hazards.instamap.location" | translate
+            }}</label>
+
+            <div
+              id="picture_upload_map"
+              class="picture_upload_map"
+              #pictureUpdloadMapDiv
+            >
+              <div class="map-tools-bottom">
+                <button
+                  nbButton
+                  size="small"
+                  nbTooltipPlacement="left"
+                  nbTooltipStatus="control"
+                  [status]="geolocation.getTracking() ? 'primary' : 'basic'"
+                  (click)="switchGeolocation()"
+                >
+                  <nb-icon icon="navigation-2" pack="eva"></nb-icon>
+                </button>
+              </div>
+            </div>
+            <p class="caption">
+              <em>{{ "risks_hazards.instamap.location_hint" | translate }}</em>
+            </p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="description" class="label">{{
+              "risks_hazards.instamap.image" | translate
+            }}</label>
+            <app-file-upload
+              id="image"
+              style="width: 100%"
+              *ngIf="context.get('image')"
+              formControlName="image"
+              [multiple]="false"
+              [accept]="'image/*'"
+            >
+            </app-file-upload>
+            <p class="caption status-danger">
+              {{ "risks_hazards.instamap.image_size_limit" | translate }}
+            </p>
+            <ng-container
+              *ngIf="form.get('image').invalid && form.get('image').touched"
+            >
+              <p
+                class="caption status-danger"
+                *ngIf="form.get('image').errors?.required"
+              >
+                {{ "risks_hazards.instamap.image_required" | translate }}
+              </p>
+            </ng-container>
+          </div>
+
+          <div class="form-group">
+            <label for="description" class="label">{{
+              "risks_hazards.instamap.picture_description" | translate
+            }}</label>
+            <textarea
+              nbInput
+              fullWidth
+              id="description"
+              formControlName="description"
+              placeholder="{{
+                'risks_hazards.instamap.picture_description_hint' | translate
+              }}"
+            ></textarea>
+            <ng-container
+              *ngIf="
+                form.get('description').invalid &&
+                form.get('description').touched
+              "
+            >
+              <p
+                class="caption status-danger"
+                *ngIf="form.get('description').errors?.required"
+              >
+                {{ "risks_hazards.instamap.description_required" | translate }}
+              </p>
+            </ng-container>
+          </div>
+
+          <div class="form-group">
+            <label for="taken_at" class="label">{{
+              "risks_hazards.instamap.taken_at" | translate
+            }}</label>
+            <input
+              type="datetime-local"
+              nbInput
+              formControlName="taken_at"
+              fullWidth
+              id="taken_at"
+              placeholder="{{
+                'risks_hazards.instamap.taken_at_hint' | translate
+              }}"
+            />
+            <ng-container
+              *ngIf="
+                form.get('taken_at').invalid && form.get('taken_at').touched
+              "
+            >
+              <p
+                class="caption status-danger"
+                *ngIf="form.get('taken_at').errors?.required"
+              >
+                {{ "risks_hazards.instamap.taken_at_required" | translate }}
+              </p>
+            </ng-container>
+          </div>
+
+          <div class="form-group">
+            <label for="uploader_name" class="label">{{
+              "risks_hazards.instamap.uploader_name" | translate
+            }}</label>
+            <input
+              type="text"
+              nbInput
+              formControlName="uploader_name"
+              fullWidth
+              id="uploader_name"
+              placeholder="Rabe Vohitra"
+            />
+            <ng-container
+              *ngIf="
+                form.get('uploader_name').invalid &&
+                form.get('uploader_name').touched
+              "
+            >
+              <p
+                class="caption status-danger"
+                *ngIf="form.get('uploader_name').errors?.required"
+              >
+                {{
+                  "risks_hazards.instamap.uploader_name_required" | translate
+                }}
+              </p>
+            </ng-container>
+          </div>
+
+          <div class="form-group">
+            <label for="uploader_email" class="label">{{
+              "risks_hazards.instamap.uploader_email" | translate
+            }}</label>
+            <input
+              type="uploader_email"
+              nbInput
+              fullWidth
+              id="uploader_email"
+              formControlName="uploader_email"
+              placeholder="xxx@email.mg"
+            />
+            <ng-container
+              *ngIf="
+                form.get('uploader_email').invalid &&
+                form.get('uploader_email').touched
+              "
+            >
+              <p
+                class="caption status-danger"
+                *ngIf="form.get('uploader_email').errors?.required"
+              >
+                {{ "login.error_email_required" | translate }}
+              </p>
+              <p
+                class="caption status-danger"
+                *ngIf="
+                  form.get('uploader_email').errors?.pattern ||
+                  form.get('uploader_email').errors?.email
+                "
+              >
+                {{ "login.error_email" | translate }}
+              </p>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+  <ng-container *ngIf="showWarning">
+    <nb-alert
+      status="warning"
+      style="margin: 0 !important"
+      closable
+      (close)="showWarning = false"
+    >
+      {{ "risks_hazards.instamap.warning" | translate }}
+    </nb-alert>
+  </ng-container>
+  <nb-card-footer>
+    <button nbButton (click)="close(false)" [disabled]="form.disabled">
+      {{ "cancel" | translate }}
+    </button>
+    <button
+      class="cancel"
+      nbButton
+      status="primary"
+      style="margin-left: 10px"
+      (click)="onAddInstance()"
+      [disabled]="!form.valid || form.disabled"
+    >
+      {{ "publish" | translate }}
+    </button>
+  </nb-card-footer>
+</nb-card>

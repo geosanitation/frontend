@@ -1,0 +1,350 @@
+// @nebular theming framework
+@import '~@nebular/theme/styles/theming';
+// @nebular out of the box themes
+@import '~@nebular/theme/styles/themes';
+
+$nb-themes: nb-register-theme((
+  layout-padding-top: 2.25rem,
+
+  menu-item-icon-margin: 0 0.5rem 0 0,
+
+  card-height-tiny: 13.5rem,
+  card-height-small: 21.1875rem,
+  card-height-medium: 28.875rem,
+  card-height-large: 36.5625rem,
+  card-height-giant: 44.25rem,
+  card-margin-bottom: 1.875rem,
+  card-header-with-select-padding-top: 0.5rem,
+  card-header-with-select-padding-bottom: 0.5rem,
+
+  select-min-width: 6rem,
+
+  slide-out-background: #f7f9fc,
+  slide-out-shadow-color: 0 4px 14px 0 #8f9bb3,
+  slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3,
+), default, default);
+
+$nb-themes: nb-register-theme((
+  layout-padding-top: 2.25rem,
+
+  menu-item-icon-margin: 0 0.5rem 0 0,
+
+  card-height-tiny: 13.5rem,
+  card-height-small: 21.1875rem,
+  card-height-medium: 28.875rem,
+  card-height-large: 36.5625rem,
+  card-height-giant: 44.25rem,
+  card-margin-bottom: 1.875rem,
+  card-header-with-select-padding-top: 0.5rem,
+  card-header-with-select-padding-bottom: 0.5rem,
+
+  select-min-width: 6rem,
+
+  slide-out-background: #252547,
+  slide-out-shadow-color: 2px 0 3px #29157a,
+  slide-out-shadow-color-rtl: -2px 0 3px #29157a,
+), cosmic, cosmic);
+
+$nb-themes: nb-register-theme((
+  layout-padding-top: 2.25rem,
+
+  menu-item-icon-margin: 0 0.5rem 0 0,
+
+  card-height-tiny: 13.5rem,
+  card-height-small: 21.1875rem,
+  card-height-medium: 28.875rem,
+  card-height-large: 36.5625rem,
+  card-height-giant: 44.25rem,
+  card-margin-bottom: 1.875rem,
+  card-header-with-select-padding-top: 0.5rem,
+  card-header-with-select-padding-bottom: 0.5rem,
+
+  select-min-width: 6rem,
+
+  slide-out-background: linear-gradient(270deg, #edf1f7 0%, #e4e9f2 100%),
+  slide-out-shadow-color: 0 4px 14px 0 #8f9bb3,
+  slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3,
+), corporate, corporate);
+
+$nb-themes: nb-register-theme((
+  layout-padding-top: 2.25rem,
+
+  menu-item-icon-margin: 0 0.5rem 0 0,
+
+  card-height-tiny: 13.5rem,
+  card-height-small: 21.1875rem,
+  card-height-medium: 28.875rem,
+  card-height-large: 36.5625rem,
+  card-height-giant: 44.25rem,
+  card-margin-bottom: 1.875rem,
+  card-header-with-select-padding-top: 0.5rem,
+  card-header-with-select-padding-bottom: 0.5rem,
+
+  select-min-width: 6rem,
+
+  slide-out-background: linear-gradient(270deg, #222b45 0%, #151a30 100%),
+  slide-out-shadow-color: 0 4px 14px 0 #8f9bb3,
+  slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3,
+), dark, dark);
+
+// https://material.io/archive/guidelines/style/color.html#color-color-palette
+@import "~@angular/material/theming";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// **Be sure that you only ever include this mixin once!**
+@include mat-core();
+
+@mixin theme-color-grabber($theme) {
+  // Parse the theme and create variables for each color in the pallete #c1000a(rouge) jaune #ffd800
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+
+  $_background: map-get($theme, background);
+  $app-background-color: mat-color($_background, background);
+
+  p,
+  div,
+  span,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: "Helvetica", "Arial", sans-serif;
+  }
+
+  body {
+    background-color: $app-background-color;
+  }
+
+  // Create theme specfic styles
+
+  .primaryColor {
+    color: mat-color($primary) !important;
+  }
+
+  .primaryColorBorder {
+    border-color: mat-color($primary) !important;
+  }
+
+  .primaryColorFill {
+    fill: mat-color($primary) !important;
+  }
+  .accentColor {
+    color: mat-color($accent) !important;
+  }
+
+  .warnColor {
+    color: mat-color($warn) !important;
+  }
+
+  .primaryColorBG {
+    background-color: mat-color($primary) !important;
+  }
+
+  .accentColorBG {
+    background-color: mat-color($accent) !important;
+  }
+
+  .accentColorTheme {
+    background-color: #2e6ebf !important;
+  }
+
+  .accentColorFill {
+    fill: mat-color($accent) !important;
+  }
+
+  .warnColorBG {
+    background-color: mat-color($warn) !important;
+  }
+
+  .warnColorFill {
+    fill: mat-color($warn) !important;
+  }
+
+  .white {
+    color: #fff !important;
+  }
+
+  .whiteFill {
+    fill: #fff !important;
+  }
+  .whiteBG {
+    background-color: #fff !important;
+  }
+
+  .black {
+    color: #777e82 !important;
+  }
+  .blackBG {
+    background-color: #777e82 !important;
+  }
+  .blackFill {
+    fill: #777e82 !important;
+  }
+
+  .whiteBorder {
+    border-color: #fff !important;
+  }
+  .warnBorder {
+    border-color: mat-color($warn) !important;
+  }
+
+  //   .font {
+  //     font-family: Roboto, "Helvetica Neue", sans-serif;
+  //   }
+
+  .gray {
+    color: $gray !important;
+  }
+
+  .grayFill {
+    fill: $gray !important;
+  }
+
+  .grayBG {
+    background-color: $gray !important;
+  }
+
+  .label_white .mat-form-field-label {
+    // display: none !important;
+    color: #fff !important;
+  }
+  .label_white .mat-form-field-label-empry {
+    color: #fff !important;
+  }
+
+  .red {
+    color: red !important;
+  }
+
+  .redBG {
+    background-color: red !important;
+  }
+  .redBorder {
+    border-color: red !important;
+  }
+  .bold {
+    font-weight: bold;
+  }
+
+  button :focus {
+    outline: none !important;
+  }
+}
+
+$marron: (
+  50: #ffffff,
+  100: #2872c2,
+  200: #2872c2,
+  300: #2872c2,
+  400: #2872c2,
+  500: #2872c2,
+  600: #2872c2,
+  700: #2872c2,
+  800: #2872c2,
+  900: #2872c2,
+  A100: #ffffff,
+  A200: #fff7f4,
+  A400: #2872c2,
+  A700: #2872c2,
+  contrast: (
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A700: white,
+  ),
+);
+
+// $secondaire: (
+//   50: #ffffff,
+//   100: #a20067,
+//   200: #a20067,
+//   300: #a20067,
+//   400: #a20067,
+//   500: #a20067,
+//   600: #a20067,
+//   700: #a20067,
+//   800: #a20067,
+//   900: #a20067,
+//   A100: #ffffff,
+//   A200: #fff7f4,
+//   A400: #a20067,
+//   A700: #a20067,
+//   contrast: (
+//     500: white,
+//     600: white,
+//     700: white,
+//     800: white,
+//     900: white,
+//     A700: white,
+//   ),
+// );
+
+$secondaire: (
+  50: #ffffff,
+  100: #25973e,
+  200: #25973e,
+  300: #25973e,
+  400: #25973e,
+  500: #25973e,
+  600: #25973e,
+  700: #25973e,
+  800: #25973e,
+  900: #25973e,
+  A100: #ffffff,
+  A200: #fff7f4,
+  A400: #25973e,
+  A700: #25973e,
+  contrast: (
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A700: white,
+  ),
+);
+
+$warn: (
+  50: #ffffff,
+  100: #f44336,
+  200: #f44336,
+  300: #f44336,
+  400: #f44336,
+  500: #f44336,
+  600: #f44336,
+  700: #f44336,
+  800: #f44336,
+  900: #f44336,
+  A100: #ffffff,
+  A200: #fff7f4,
+  A400: #f44336,
+  A700: #f44336,
+  contrast: (
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A700: white,
+  ),
+);
+
+$primary_color:"#2872c2";
+
+$primary_transparent_bg: #f2f7fa;
+
+$gray: #dee0e2;
+$theme-primary: mat-palette($marron, 700);
+$theme-accent: mat-palette($secondaire, 700);
+$theme-warn: mat-palette($warn, 700);
+$theme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
+
+@include theme-color-grabber($theme);
+@include angular-material-theme($theme);

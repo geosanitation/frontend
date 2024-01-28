@@ -1,0 +1,15 @@
+.btn-actions {
+  display: flex;
+  padding: 20px 20px 0 0;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+  .btn-add {
+    border-radius: 25px;
+  }
+}
+.group-list {
+  margin: 20px;
+  max-height: calc(100vh - 216px);
+  overflow: auto;
+}

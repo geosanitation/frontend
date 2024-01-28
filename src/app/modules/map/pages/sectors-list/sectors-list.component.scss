@@ -1,0 +1,44 @@
+@import '../../../../@theme/styles/themes';
+// .group-list ::ng-deep .menu-title {
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//     display: -webkit-box;
+//     -webkit-line-clamp: 1;
+//     /* number of lines to show */
+//     line-clamp: 1;
+//     -webkit-box-orient: vertical;
+//     width: 80%;
+// }
+
+.header {
+    display: flex;
+}
+nb-list :hover {
+    cursor: pointer;
+    background-color: rgb(243, 243, 243);
+    nb-badge {
+        background-color: var(--badge-info-background-color);
+    }
+}
+
+.group-label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .group-color {
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+        margin-right: 20px;
+    }
+}
+
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    /* number of lines to show */
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+}

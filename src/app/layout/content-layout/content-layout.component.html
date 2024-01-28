@@ -1,0 +1,19 @@
+<nb-layout>
+  <nb-layout-header fixed>
+    <geosanitation-header></geosanitation-header>
+  </nb-layout-header>
+
+  <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive>
+    <nb-menu [items]="menu"></nb-menu>
+  </nb-sidebar>
+
+  <nb-layout-column style="padding: 0 !important;">
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+
+  <notifier-container></notifier-container>
+
+  <!-- <nb-layout-footer fixed>
+    <geosanitation-footer></geosanitation-footer>
+  </nb-layout-footer> -->
+</nb-layout>
