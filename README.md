@@ -6,11 +6,11 @@ You can access a demo version of the project at https://demo.geo-sanitation.com.
 
 ![geosanitation-instamap](https://github.com/geosanitation/frontend/assets/43842786/06e0b195-c589-4208-8553-a6cc7364c34a)
 
-### Background
+## Background
 
 This demo is a part of a doctoral research project. For a comprehensive understanding of the project, you can read the research paper [here](https://drive.google.com/file/d/1_ohLthgQ5QWRyC5iMCMRe_V---UiQnsa/view?usp=sharing) (in french). Additionally, if you're interested specifically in the feasibility study, it's available [here](https://drive.google.com/file/d/1JvJ6es_IOjwLTdyjeZfOz6WQ6fG4rM81/view?usp=sharing) (in french).
 
-### How to Run Locally
+## How to Run Locally
 
 ***Requirements: Node v18+, Angular CLI v13+***
 ```sh
@@ -25,8 +25,6 @@ $ ng build
 ```
 The backend code for this project is stored in a private repository. However, you can utilize the preprod environments as a backend to access data. Simply copy the content of environment.preprod.ts and replace the content of environment.ts.
 
-If you have any concerns or questions about the backend code, please feel free to contact me (xpirixii@gmail.com) via email.
-
 ### Basemaps
 
 To integrate basemaps, you'll need your own MapTiler key. If you don't have one yet, log in to https://cloud.maptiler.com/ and create a new key in the `API Keys` tab. Then, paste the key in `mapTilerKey` variable in all your environments files.
@@ -36,4 +34,10 @@ To integrate basemaps, you'll need your own MapTiler key. If you don't have one 
 - Star the GitHub repo :star:
 - Create pull requests, submit bugs, suggest new features or documentation updates :wrench:
 - Follow me on [Twitter](https://twitter.com/Xpirix3) :feet:
-- Contact me (xpirixii@gmail.com) for any specific questions.
+
+## Credits
+
+### Special Thanks to...
+
+- [data-osm](https://github.com/data-osm) and the wonderfull projet of Karl Tayou
+- [ngx-admin](https://github.com/akveo/ngx-admin)
