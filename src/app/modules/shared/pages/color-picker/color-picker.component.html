@@ -1,0 +1,29 @@
+<div class="form-group" id="input-color">
+  <label for="color" class="label">{{ colorLabel }}</label>
+  <input
+    type="text"
+    nbInput
+    [formControl]="colorForm"
+    fullWidth
+    id="name"
+    [status]="
+      colorForm.dirty ? (colorForm.invalid ? 'danger' : 'success') : 'basic'
+    "
+    [required]="true"
+    [attr.aria-invalid]="colorForm.invalid && colorForm.touched ? true : null"
+    [attr.style]="'background:' + colorForm.value + ' !important' | safeStyle"
+    [cpPositionOffset]="'50%'"
+    [cpPosition]="position"
+    [cpAlphaChannel]="'always'"
+    [cpOutputFormat]="colorOutputFormat"
+    [cpPresetColors]="presetValues"
+    [cpSaveClickOutside]="true"
+    [(colorPicker)]="colorForm.value"
+    (colorPickerChange)="onColorPickerSelect($event, 'color')"
+  />
+  <ng-container *ngIf="colorForm.invalid && colorForm.touched">
+    <p class="caption status-danger" *ngIf="colorForm.errors?.required">
+      {{ colorError }}
+    </p>
+  </ng-container>
+</div>

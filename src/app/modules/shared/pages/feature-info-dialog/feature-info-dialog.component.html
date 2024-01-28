@@ -1,0 +1,31 @@
+<ng-container *ngIf="{ features: features$ | async } as context">
+  <nb-card status="primary" class="feature-info-dialog" cdkDrag>
+    <nb-card-header>
+      <img
+        [src]="environment.backendUrl + dataOsmLAyer?.layer.cercle_icon"
+        alt=""
+        srcset=""
+        class="icon_header"
+        style="margin-top: 4px; height: 25px"
+      />
+      <span>{{ dataOsmLAyer?.layer.name }}</span>
+      <button nbButton shape="round" (click)="close(false)">
+        <nb-icon icon="close"></nb-icon>
+      </button>
+    </nb-card-header>
+    <nb-card-body *ngIf="context.features == undefined">
+      <!-- Loading -->
+      <span>Chargement des données en cours...</span>
+    </nb-card-body>
+    <ng-container *ngIf="context.features != undefined">
+      <geosanitation-custom-sheet
+        *ngIf="data.type != 'osm'"
+        [features]="context.features"
+        [coord]="data.coordinates_3857"
+        [map]="data.map"
+        [highlightLayer]="highlightLayer"
+      ></geosanitation-custom-sheet>
+    </ng-container>
+    <!-- <nb-card-footer></nb-card-footer> -->
+  </nb-card>
+</ng-container>

@@ -1,0 +1,116 @@
+@import "../../../../@theme/styles/themes";
+
+.main-map-container {
+//   width: 75%;
+  position: relative;
+  height: calc(100vh - var(--header-height));
+
+  #map {
+    // position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: calc(100% - var(--footer-height));
+  }
+
+  .map-tools-top {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    display: flex;
+    flex-direction: column;
+
+    button {
+      margin: 5px;
+    }
+  }
+
+  .map-tools-bottom {
+    position: absolute;
+    right: 8px;
+    bottom: calc(48px + var(--footer-height));
+    display: flex;
+    flex-direction: column;
+
+    button {
+      margin: 5px;
+    }
+  }
+
+  .map-tools-bottom-center {
+    position: absolute;
+    left: 45dvw;
+    bottom: calc(48px + var(--footer-height));
+    display: flex;
+    flex-direction: column;
+
+    button {
+      margin: 5px;
+    }
+  }
+}
+::ng-deep .ol-control.ol-layerswitcher-image {
+  left: 0.5em !important;
+  right: unset;
+  bottom: calc(3em + var(--footer-height));
+  top: unset;
+}
+
+.dialog-backdrop-custom {
+  opacity: 0;
+}
+
+
+::ng-deep .ol-geocoder.gcd-txt-container {
+  height: 3em;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  // width: 100%;
+  position: static;
+}
+
+::ng-deep .ol-geocoder .gcd-txt-control {
+  height: 3em;
+  border: none;
+  border-radius: 3em;
+  box-shadow: 0 1px 7px rgba(0,0,0,.2);
+}
+
+::ng-deep .ol-geocoder .gcd-txt-glass {
+  // display: none;
+  left: 15px;
+  top: 13px;
+}
+
+::ng-deep .ol-geocoder .gcd-txt-input:focus {
+  border-radius: 3em;
+}
+
+::ng-deep .ol-geocoder ul.gcd-txt-result {
+  top: 3.5em;
+  box-shadow: 0 1px 7px rgba(0,0,0,.2);
+  border-radius: 5px;
+  position: sticky;
+  width: 24em;
+  margin-top: 1em;
+  max-width: 100%;
+
+  li {
+    background-color: unset !important;
+    padding: 5px;
+    a {
+      color: inherit;
+    }
+    a:hover {
+      background-color: unset;
+      color: var(--text-primary-hover-color);
+    }
+    .gcd-road {
+      color: unset;
+    }
+  }
+}

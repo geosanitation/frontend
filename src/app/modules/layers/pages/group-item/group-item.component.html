@@ -1,0 +1,43 @@
+<nb-flip-card>
+  <nb-card-front class="group-card" (click)="openGroup(group.group_id)">
+    <nb-card accent="danger" [style.border-top-color]="group.color">
+      <!-- <div class="icon-container">
+        <div class="icon">
+          <ng-content></ng-content>
+        </div>
+      </div> -->
+
+      <div class="details">
+        <div class="title h5 truncate">{{ group.name }}</div>
+        <div class="status paragraph-2">Couches: {{ group.layers_count }}</div>
+      </div>
+    </nb-card>
+  </nb-card-front>
+  <nb-card-back>
+    <nb-card accent="danger" [style.border-top-color]="group.color">
+      <nb-card-body>
+        <button
+          nbButton
+          outline
+          size="small"
+          status="primary"
+          (click)="editGroup.emit(group)"
+          *ngIf="store.user?.is_superuser"
+        >
+          <nb-icon icon="edit-outline"></nb-icon>Modifier
+        </button>
+        <button
+          nbButton
+          outline
+          size="small"
+          status="danger"
+          (click)="deleteGroup.emit(group)"
+          *ngIf="store.user?.is_superuser"
+        >
+          <nb-icon icon="trash-outline"></nb-icon>Supprimer
+        </button>
+        <span *ngIf="!store.user?.is_superuser">Aucune action disponible</span>
+      </nb-card-body>
+    </nb-card>
+  </nb-card-back>
+</nb-flip-card>

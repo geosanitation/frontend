@@ -1,0 +1,23 @@
+<nb-card-header class="header">
+  {{ 'map.thematics_data' | translate }}
+</nb-card-header>
+<ng-container *ngIf="groups$ | async as groups">
+  <nb-list *ngIf="groups.length > 0 else nodata;">
+    <nb-list-item
+      *ngFor="let group of groups"
+      style="justify-content: space-between"
+      (click)="openGroup(group)"
+    >
+      <div class="group-label">
+        <div class="group-color" [style.background]="group.color"></div>
+        <span class="truncate">
+          {{ group.name }}
+        </span>
+      </div>
+      <nb-badge [text]="group.layers_count" status="info" style="position: initial"></nb-badge>
+    </nb-list-item>
+  </nb-list>
+  <ng-template #nodata>
+    <p align="center" style="margin-top: 10px;">{{'groups.no_group_found' | translate}}</p>
+  </ng-template>
+</ng-container>

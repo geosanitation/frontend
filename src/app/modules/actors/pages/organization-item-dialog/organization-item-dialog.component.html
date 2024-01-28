@@ -1,0 +1,80 @@
+<nb-card class="right-side-dialog" status="primary">
+  <nb-card-header>
+    <span>{{ organization.name }}</span>
+
+    <button nbButton shape="round" (click)="close()">
+      <nb-icon icon="close"></nb-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="item-section">
+      <div class="btn-actions">
+        <h6>{{ "actors.organization.global_info" | translate }}</h6>
+        <button
+          nbButton
+          outline
+          status="primary"
+          shape="round"
+          (click)="onEditOrganizationInstance(organization)"
+          *ngIf="store.user?.is_superuser"
+        >
+          <nb-icon icon="edit"></nb-icon
+          >{{ "actors.organization.edit" | translate }}
+        </button>
+      </div>
+      <div>
+        <nb-icon icon="building" pack="fa"></nb-icon>
+        <span>
+          {{ organization.name }}
+        </span>
+      </div>
+      <div>
+        <nb-icon icon="list"></nb-icon>
+        <span class="org_type">
+          <strong>{{ "actors.organization.org_type" | translate }} :</strong>  
+          {{ getOrgType(organization.org_type) }}
+        </span>
+      </div>
+      <div>
+        <nb-icon icon="info"></nb-icon>
+        <span class="attributions">
+          <strong>{{ "actors.organization.activity_areas" | translate }} :</strong>
+          {{ organization.activity_areas }}
+        </span>
+      </div>
+    </div>
+    <div class="item-section">
+      <h6>{{ "actors.organization.contact_info" | translate }}</h6>
+      <div>
+        <nb-icon icon="pin"></nb-icon>
+        <span>
+          <strong>{{ "actors.organization.address" | translate }} :</strong>
+          {{ organization.address }}
+          </span
+        >
+      </div>
+      <div>
+        <nb-icon icon="phone"></nb-icon>
+        <span>{{ organization.phone }}</span>
+      </div>
+      <div>
+        <nb-icon icon="email"></nb-icon>
+        <span><a [href]="'mailto:'+ organization.email">{{ organization.email }}</a></span>
+      </div>
+      <div>
+        <nb-icon icon="globe"></nb-icon>
+        <span><a [href]="organization.website" target="_blank">{{ organization.website }}</a></span>
+      </div>
+    </div>
+    <div class="item-section" *ngIf="store.user?.is_superuser">
+      <h6>{{ "actors.organization.actions" | translate }}</h6>
+      <div>
+        <button nbButton status="danger" style="width: 100%" 
+        (click)="onDeleteInstance()">
+          <nb-icon icon="trash"></nb-icon
+          >{{ "actors.organization.delete" | translate }}
+        </button>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

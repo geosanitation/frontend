@@ -1,0 +1,51 @@
+<ng-container *ngIf="{ features: features$ | async } as context">
+  <nb-card
+    status="primary"
+    status="primary"
+    [nbSpinner]="featureInfoIsLoading"
+    nbSpinnerSize="large"
+    nbSpinnerStatus="primary"
+    size="giant"
+  >
+    <nb-card-header>
+      <!-- <span> Details de la publication </span> -->
+
+      <nb-user
+        *ngIf="context.features != undefined && context.features.length == 1"
+        size="large"
+        [name]="context.features[0].uploader_name"
+        [title]="formatDate(context.features[0].taken_at)"
+      >
+      </nb-user>
+      <button nbButton shape="round" (click)="close(false)">
+        <nb-icon icon="close"></nb-icon>
+      </button>
+    </nb-card-header>
+    <nb-card-body>
+      <!-- Loading -->
+      <ng-container *ngIf="context.features == undefined">
+        <span>Chargement des données en cours...</span>
+      </ng-container>
+      <ng-container
+        *ngIf="context.features != undefined && context.features.length == 1"
+      >
+        <div class="description mb-3">
+          {{ context.features[0].description }}
+        </div>
+        <a
+          [href]="
+            environment.backendUrl + '/media/' + context.features[0].image
+          "
+          target="_blank"
+        >
+          <img
+            [src]="
+              environment.backendUrl + '/media/' + context.features[0].image
+            "
+          />
+        </a>
+      </ng-container>
+    </nb-card-body>
+    <!-- <nb-card-footer></nb-card-footer> -->
+  </nb-card>
+</ng-container>

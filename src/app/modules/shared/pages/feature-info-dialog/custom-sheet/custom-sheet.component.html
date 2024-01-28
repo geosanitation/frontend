@@ -1,0 +1,61 @@
+<nb-card-body>
+  <div class="text-center">
+    <mat-chip-list
+      id="asd"
+      style="display: inline-table"
+      #featuresList
+      [multiple]="false"
+      color="accent"
+      selectable
+    >
+      <mat-chip
+        #chip="matChip"
+        (click)="toggleSelection(chip)"
+        *ngFor="let feat of features; let index = index"
+        [value]="feat"
+      >
+        {{ getNameOfFeature(feat, index + 1) }}
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <tbody>
+        <tr *ngFor="let field of fields; let i = index">
+          <th class="text-nowrap text-basic" scope="row">
+            <ng-container *ngIf="field.alias; else no_alias">
+              {{ field.alias}}
+            </ng-container>
+            <ng-template #no_alias>
+              {{ field.name}}
+            </ng-template>
+          </th>
+          <td class="text-basic" style="word-break: break-word;">
+            {{ field.value}} 
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</nb-card-body>
+
+<nb-card-footer>
+  <button nbButton [hidden]="!extent" (click)="zoomOnFeatureExtent()">
+    <nb-icon icon="maximize"></nb-icon>
+    Zoomer
+  </button>
+  <ng-container *ngIf="selectedFeature">
+    <button
+      nbButton
+      status="success"
+      nbContextMenuTrigger="click"
+      [nbContextMenu]="downloadFormats"
+      nbContextMenuTag="download-feature-menu"
+    >
+      <nb-icon icon="download"></nb-icon>
+      Télécharger
+    </button>
+  </ng-container>
+</nb-card-footer>

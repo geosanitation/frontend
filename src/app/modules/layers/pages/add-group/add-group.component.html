@@ -1,0 +1,86 @@
+<nb-card status="primary" [nbSpinner]="form.disabled" nbSpinnerSize="large" nbSpinnerStatus="primary" >
+  <nb-card-header>
+    <ng-container *ngIf="group; else create">
+      {{ "groups.edit_group" | translate }}
+    </ng-container>
+    <ng-template #create>
+      {{ "groups.add_new_group" | translate }}
+    </ng-template>
+
+    <button nbButton shape="round" (click)="close()">
+      <nb-icon icon="close"></nb-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="form" *ngIf="form as context">
+      <div class="form-group">
+        <label for="name" class="label">{{
+          "groups.group_name" | translate
+        }}</label>
+        <input
+          type="text"
+          nbInput
+          formControlName="name"
+          fullWidth
+          id="name"
+          [status]="
+            context.get('name').dirty
+              ? context.get('name').invalid
+                ? 'danger'
+                : 'success'
+              : 'basic'
+          "
+          [required]="true"
+          [attr.aria-invalid]="
+            context.get('name').invalid && context.get('name').touched
+              ? true
+              : null
+          "
+        />
+        <ng-container
+          *ngIf="context.get('name').invalid && context.get('name').touched"
+        >
+          <p
+            class="caption status-danger"
+            *ngIf="context.get('name').errors?.required"
+          >
+            {{ "groups.group_name_required" | translate }}
+          </p>
+        </ng-container>
+      </div>
+
+      <div style="width: 100%" #containerColorPicker>
+        <app-color-picker
+          style="display: block"
+          [width]="'100%'"
+          [colorLabel]="'groups.group_color' | translate"
+          [colorError]="'groups.group_color_required' | translate"
+          [colorForm]="form.get('color')"
+          [position]="'left'"
+          [container]="containerColorPicker"
+        ></app-color-picker>
+      </div>
+
+      <div class="form-group">
+        <nb-checkbox status="info" formControlName="is_visible">{{
+          "groups.visible_for_admin_only" | translate
+        }}</nb-checkbox>
+      </div>
+    </form>
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton (click)="close()" [disabled]="form.disabled">
+      {{ "cancel" | translate }}
+    </button>
+    <button
+      class="cancel"
+      nbButton
+      status="primary"
+      style="margin-left: 10px"
+      [disabled]="!form.valid || form.disabled"
+      (click)="group ? onUpdateInstance() : onAddInstance()"
+    >
+      {{ "save" | translate }}
+    </button>
+  </nb-card-footer>
+</nb-card>

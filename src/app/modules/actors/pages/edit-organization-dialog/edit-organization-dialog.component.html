@@ -1,0 +1,129 @@
+<nb-card status="primary">
+    <nb-card-header>
+      <span>{{ "actors.organization.edit_organism" | translate }}</span>
+  
+      <button nbButton shape="round" (click)="close(false)">
+        <nb-icon icon="close"></nb-icon>
+      </button>
+    </nb-card-header>
+  
+    <nb-card-body>
+      <form [formGroup]="form" *ngIf="form as context">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="name" class="label">Nom</label>
+              <input
+                type="text"
+                nbInput
+                formControlName="name"
+                fullWidth
+                id="name"
+                placeholder="Water organization"
+              />
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="email" class="label">{{
+                "actors.organization.email" | translate
+              }}</label>
+              <input
+                type="email"
+                nbInput
+                fullWidth
+                id="email"
+                formControlName="email"
+                placeholder="xxx@email.mg"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="phone" class="label">{{
+                "actors.organization.phone" | translate
+              }}</label>
+              <input
+                type="text"
+                nbInput
+                fullWidth
+                id="phone"
+                formControlName="phone"
+                placeholder="22 123 45"
+              />
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="website" class="label">{{
+                "actors.organization.website" | translate
+              }}</label>
+              <input
+                type="text"
+                nbInput
+                fullWidth
+                id="website"
+                formControlName="website"
+                placeholder="https://www.thesite.com"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="address" class="label">{{
+            "actors.organization.address" | translate
+          }}</label>
+          <input
+            type="text"
+            nbInput
+            fullWidth
+            id="address"
+            formControlName="address"
+            placeholder="Lot XX Antananarivo"
+          />
+        </div>
+        <div class="form-group">
+          <label for="org_type" class="label">{{
+            "actors.organization.org_type" | translate
+          }}</label>
+          <div>
+            <nb-select formControlName="org_type" id="org_type" fullWidth>
+              <nb-option *ngFor="let org_type of org_types " [value]="org_type.value">
+                {{org_type.name}}
+              </nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="activity_areas" class="label">{{
+            "actors.organization.activity_areas" | translate
+          }}</label>
+          <textarea
+            nbInput
+            fullWidth
+            id="activity_areas"
+            formControlName="activity_areas"
+            placeholder="Domaines d'acitvités de l'organisme"
+          ></textarea>
+        </div>
+      </form>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton (click)="close(false)" [disabled]="form.disabled">
+        {{ "cancel" | translate }}
+      </button>
+      <button
+        class="cancel"
+        nbButton
+        status="primary"
+        style="margin-left: 10px"
+        [disabled]="!form.valid || form.disabled"
+        (click)="onSubmitInstance()"
+      >
+        {{ "save" | translate }}
+      </button>
+    </nb-card-footer>
+  </nb-card>
+  

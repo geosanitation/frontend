@@ -1,0 +1,118 @@
+<nb-card
+  status="primary"
+  [nbSpinner]="formEditStyle.disabled"
+  nbSpinnerSize="large"
+  nbSpinnerStatus="primary"
+>
+  <nb-card-header>
+    <span>
+      {{ "groups.layers.edit_style" | translate }}
+    </span>
+    <button nbButton shape="round" (click)="close()">
+      <nb-icon icon="close"></nb-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <ng-container *ngIf="provider$ | async as provider">
+      <div class="select-type-style">
+
+        <nb-button-group
+          multiple="false"
+          [value]="styleType | async"
+          (valueChange)="styleTypeChanged($event.value)"
+        >
+          <button
+            nbButtonToggle
+            [checked]="(styleType | async) == undefined"
+            [value]="undefined"
+          >
+            QML
+          </button>
+        </nb-button-group>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="{ customStyle: (styleType | async) } as context">
+      <app-qml
+        [hidden]="context.customStyle != undefined"
+        [provider_vector_id]="data.provider_vector_id"
+        [provider_style_id]="data.provider_style_id"
+        [styleName]="nameStyle"
+      ></app-qml>
+
+      <!-- <app-cluster
+        [hidden]="context.customStyle?.fucntion_name != 'pointCluster'"
+        [customStyle]="context.customStyle"
+        [provider_vector_id]="data.provider_vector_id"
+        [provider_style_id]="data.provider_style_id"
+        [color]="data.color"
+        [icon_color]="data.icon_color"
+        [icon]="data.icon"
+        [icon_background]="data.icon_background"
+        [styleName]="nameStyle"
+      >
+      </app-cluster>
+
+      <app-point-icon-simple
+        [hidden]="context.customStyle?.fucntion_name != 'point_icon_simple'"
+        [customStyle]="context.customStyle"
+        [provider_vector_id]="data.provider_vector_id"
+        [provider_style_id]="data.provider_style_id"
+        [color]="data.color"
+        [icon_color]="data.icon_color"
+        [icon]="data.icon"
+        [icon_background]="data.icon_background"
+        [styleName]="nameStyle"
+      >
+      </app-point-icon-simple>
+
+      <app-point-diagram-simple
+        [hidden]="context.customStyle?.fucntion_name != 'diagram_simple'"
+        [customStyle]="context.customStyle"
+        [provider_vector_id]="data.provider_vector_id"
+        [provider_style_id]="data.provider_style_id"
+        [color]="data.color"
+        [styleName]="nameStyle"
+        [id_server]="data.id_server"
+        [path_qgis]="data.path_qgis"
+      >
+      </app-point-diagram-simple>
+
+      <app-polygon-simple
+        [hidden]="context.customStyle?.fucntion_name != 'polygon_simple'"
+        [customStyle]="context.customStyle"
+        [provider_vector_id]="data.provider_vector_id"
+        [provider_style_id]="data.provider_style_id"
+        [strokeColor]="data.color"
+        [fillColor]="data.icon_color"
+        [styleName]="nameStyle"
+      >
+      </app-polygon-simple>
+
+      <app-line-simple
+        [hidden]="context.customStyle?.fucntion_name != 'line_simple'"
+        [customStyle]="context.customStyle"
+        [provider_vector_id]="data.provider_vector_id"
+        [provider_style_id]="data.provider_style_id"
+        [lineColor]="data.color"
+        [styleName]="nameStyle"
+      >
+      </app-line-simple> -->
+    </ng-container>
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton (click)="close()" [disabled]="formEditStyle.disabled">
+      {{ "cancel" | translate }}
+    </button>
+    <button
+      class="cancel"
+      nbButton
+      status="primary"
+      style="margin-left: 10px"
+      [disabled]="!formEditStyle.valid || formEditStyle.disabled"
+      (click)="onEditInstance()"
+    >
+      {{ "save" | translate }}
+    </button>
+  </nb-card-footer>
+</nb-card>

@@ -1,0 +1,24 @@
+nb-card-body {
+  max-height: 400px !important;
+  width: 500px;
+  display: block;
+  .pointer {
+    font-size: 14px;
+    color: inherit;
+    // font-family: Avenir Next Rounded Pro Italic;
+    text-decoration: underline !important;
+  }
+  a:hover {
+    cursor: pointer !important;
+  }
+  
+  .table-responsive {
+    margin-top: 1rem;
+  }
+}
+
+nb-card-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

@@ -1,0 +1,12 @@
+<nb-card (click)="openLayer.emit()">
+  <div class="icon-container">
+    <img class="icon" [src]="backendUrl+layer.cercle_icon">
+    <!-- <div class="icon">
+    </div> -->
+  </div>
+
+  <div class="details">
+    <div class="title h5 truncate">{{ layer.name }}</div>
+    <div class="status paragraph-2">Dernière modification: {{ layer.updated_at | date:'dd/MM/yyyy' }}</div>
+  </div>
+</nb-card>

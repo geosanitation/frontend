@@ -1,0 +1,60 @@
+@import '../../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  nb-card {
+    flex-direction: row;
+    align-items: center;
+    height: 6rem;
+    overflow: visible;
+    margin-bottom: 10px;
+    &:hover {
+      cursor: pointer;
+      background-color: rgb(243, 243, 243)!important;
+    }
+    .icon-container {
+      height: 100%;
+      padding: 0.625rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3rem;
+      border-radius: nb-theme(card-border-radius);
+    }
+
+
+    .details {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      @include nb-ltr(padding, 0 0.5rem 0 0.75rem);
+      @include nb-rtl(padding, 0 0.75rem 0 0.5rem);
+      border-left: 1px solid transparent;
+    }
+
+    .title {
+      margin: 0;
+    }
+    .truncate {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      /* number of lines to show */
+      line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+
+    .status {
+      // text-transform: uppercase;
+      font-style: italic;
+      
+    }
+  }
+  
+}

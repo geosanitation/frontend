@@ -1,0 +1,58 @@
+@import "../../../../@theme/styles/themes";
+
+@include nb-install-component() {
+  nb-card-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .pictures-list {
+    margin: 20px;
+    .table-container {
+      height: calc(50dvh);
+      overflow: auto;
+      table {
+        width: 100%;
+      }
+      .mat-column-image {
+        padding-left: 20px;
+        width: 150px;
+      }
+      .mat-column-description {
+        padding-left: 20px;
+        width: 200px;
+      }
+      .mat-column-uploader_name {
+        padding-left: 20px;
+      }
+      .mat-column-uploader_email {
+        padding-left: 20px;
+        width: 200px;
+      }
+      .mat-column-taken_at {
+        padding-left: 20px;
+        width: 150px;
+      }
+      .mat-column-updated_at {
+        padding-left: 20px;
+        width: 150px;
+      }
+
+      tr.mat-row:hover {
+        cursor: pointer;
+        background: whitesmoke;
+      }
+    }
+  }
+  .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    /* number of lines to show */
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+}

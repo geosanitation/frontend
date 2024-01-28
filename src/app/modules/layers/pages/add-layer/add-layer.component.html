@@ -1,0 +1,176 @@
+<nb-card
+  status="primary"
+  [nbSpinner]="form.disabled"
+  nbSpinnerSize="large"
+  nbSpinnerStatus="primary"
+  style="width: 500px"
+>
+  <nb-card-header>
+    <span>
+      {{ "groups.layers.add_layer" | translate }}
+    </span>
+    <button nbButton shape="round" (click)="close()">
+      <nb-icon icon="close"></nb-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="form" *ngIf="form as context">
+      <div class="form-group">
+        <label for="name" class="label">{{
+          "groups.layers.layer_name" | translate
+        }}</label>
+        <input
+          type="text"
+          nbInput
+          formControlName="name"
+          fullWidth
+          id="name"
+          [required]="true"
+          [attr.aria-invalid]="
+            context.get('name').invalid && context.get('name').touched
+              ? true
+              : null
+          "
+        />
+        <ng-container
+          *ngIf="context.get('name').invalid && context.get('name').touched"
+        >
+          <p
+            class="caption status-danger"
+            *ngIf="context.get('name').errors?.required"
+          >
+            {{ "groups.layers.layer_name_required" | translate }}
+          </p>
+        </ng-container>
+      </div>
+
+      <div
+        class="fake-btn pointer"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        fxLayoutGap="15px"
+        (click)="onAddIconInstance()"
+        [style.outline-color]="layerIcon ? '#0d589c' : '#cdcdce'"
+        [style.color]="layerIcon ? '#0d589c' : '#787878'"
+      >
+        <div
+          fxFlex="40%"
+          fxLayout="row"
+          fxLayoutAlign="center center"
+          [style.border-color]="layerIcon ? '#0d589c' : '#cdcdce'"
+          class="icon-container"
+          [style.background]="layerIcon ? '#0d589c' : ''"
+        >
+          <i
+            fxLayout="row"
+            fxLayoutAlign="center center"
+            fxFlex="100%"
+            *ngIf="!layerIcon"
+            class="fa-solid fa-circle-plus"
+          ></i>
+          <div
+            fxLayout="row"
+            fxLayoutAlign="center center"
+            mat-list-icon
+            fxFlex="100%"
+            *ngIf="layerIcon && !layerIcon.icon_path"
+            [innerHTML]="transform(layerIcon.svg_as_text)"
+            class="couche-svg"
+          ></div>
+          <img
+            mat-list-icon
+            *ngIf="layerIcon && layerIcon.icon_path"
+            [src]="env.backendUrl + layerIcon.icon_path"
+            fxFlex="100%"
+          />
+        </div>
+        <span
+          fxFlex="60%"
+          style="font-size: 16pt; font-weight: 600; text-align: center"
+        >
+          {{ "groups.layers.define_icon" | translate }}
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="type_source" class="label">{{
+          "groups.layers.define_type_source" | translate
+        }}</label>
+        <div>
+          <nb-select formControlName="type_source" id="type_source" fullWidth>
+            <nb-option value="file_sig">{{
+              "groups.layers.drop_file_sig" | translate
+            }}</nb-option>
+            <nb-option value="query">
+              {{ "groups.layers.query_sql" | translate }}</nb-option
+            >
+          </nb-select>
+        </div>
+      </div>
+
+      <ng-container
+        *ngIf="context.get('type_source').value == 'query'; else sig"
+      >
+        <div class="form-group">
+          <label for="connection" class="label">{{
+            "groups.layers.choose_db" | translate
+          }}</label>
+          <div>
+            <nb-select formControlName="connection" id="connection" fullWidth>
+              <nb-option
+                *ngFor="let con of connections$ | async"
+                [value]="con"
+                >{{ con }}</nb-option
+              >
+            </nb-select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="sql" class="label">{{
+            "groups.layers.queries" | translate
+          }}</label>
+          <textarea nbInput fullWidth id="sql" formControlName="sql"></textarea>
+
+          <ng-container
+            *ngIf="context.get('sql').invalid && context.get('sql').touched"
+          >
+            <p
+              class="caption status-danger"
+              *ngIf="
+                context.get('sql').errors &&
+                context.get('sql').errors['sqlProblems']
+              "
+            >
+              {{ "groups.layers.queries_id_geom_error" | translate }}
+            </p>
+          </ng-container>
+        </div>
+      </ng-container>
+      <ng-template #sig>
+        <app-file-upload
+          style="width: 100%"
+          *ngIf="context.get('source')"
+          formControlName="source"
+          [multiple]="false"
+        >
+        </app-file-upload>
+      </ng-template>
+    </form>
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton (click)="close()" [disabled]="form.disabled">
+      {{ "cancel" | translate }}
+    </button>
+    <button
+      class="cancel"
+      nbButton
+      status="primary"
+      style="margin-left: 10px"
+      [disabled]="!form.valid || form.disabled || !layerIcon"
+      (click)="onAddInstance()"
+    >
+      {{ "groups.layers.create_layer" | translate }}
+    </button>
+  </nb-card-footer>
+</nb-card>

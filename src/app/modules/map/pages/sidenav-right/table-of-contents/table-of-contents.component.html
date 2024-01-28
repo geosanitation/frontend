@@ -1,0 +1,80 @@
+<div
+  cdkDropList
+  (cdkDropListDropped)="drop($event)"
+>
+  <div *ngFor="let layer of layersInToc" cdkDrag cdkDragLockAxis="y">
+    <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+    <mat-card class="table-of-contents-card">
+      <mat-chip-list
+        style="position: absolute; top: -10px; left: 5px"
+        *ngIf="layer.badge"
+      >
+        <mat-chip
+          style="padding: 5px 5px; min-height: 20px; font-size: 11px"
+          class="white"
+          [ngStyle]="{ background: layer.badge.bgColor }"
+        >
+          {{ layer.badge.text }}
+        </mat-chip>
+      </mat-chip-list>
+
+      <div mat-card-image class="table-of-contents-card-img">
+        <img [src]="layer.image" [alt]="layer.nom" style="width: auto" />
+      </div>
+
+      <mat-card-content>
+        <p>
+          <i
+            class="fa fa-info-circle pointer primaryColor"
+            *ngIf="layer['properties']['type'] == 'couche'"
+            matTooltip="Métadonné"
+            style="margin-right: 10px; font-size: 17px"
+          ></i>
+          <i
+            class="fa fa-share-alt pointer primaryColor"
+            *ngIf="layer.tocCapabilities.share"
+            matTooltip="Partager cette couche"
+            style="margin-right: 10px; font-size: 15px"
+          ></i>
+          <i
+            class="fa fa-trash pointer"
+            (click)="removeLayer(layer)"
+            matTooltip="Enlever la couche"
+            style="font-size: 15px; color: rgb(242, 79, 79)"
+          ></i>
+        </p>
+
+        <mat-slider
+          *ngIf="layer.tocCapabilities.opacity"
+          (change)="setOpactiyOfLayer($event, layer)"
+          style="width: 100%"
+          [max]="100"
+          [min]="0"
+          color="primary"
+          [thumbLabel]="true"
+          [value]="layer.layer[0].getOpacity() * 100"
+        ></mat-slider>
+      </mat-card-content>
+      <mat-card-actions>
+        <mat-checkbox
+          labelPosition="after"
+          color="primary"
+          [(ngModel)]="layer.visible"
+          (change)="setVisibleOfLayer($event, layer)"
+        >
+          {{ layer.nom }}
+        </mat-checkbox>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+<div
+  class="table-of-contents-footer"
+  fxLayout="row"
+  fxLayoutAlign="center center"
+>
+  <button nbButton size="small" status="danger" (click)="clearMap()">
+    {{ "map.delete_all_layers" | translate }}
+  </button>
+</div>

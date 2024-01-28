@@ -1,0 +1,52 @@
+<div fxLayout="column" class="polygon-simple-form">
+  <ng-container *ngIf="customStyle">
+    <mat-accordion style="margin-bottom: 20px">
+      <mat-expansion-panel [expanded]="false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ "groups.layers.symbology_edit.cluster.description" | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="description-style">
+          <div class="text" [innerText]="customStyle.description"></div>
+          <div class="image">
+            <img [src]="environment.backendUrl + customStyle.icon" />
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </ng-container>
+  <div #containerColorPicker >
+    <app-color-picker
+    [width]="'100%'"
+    [colorOutputFormat]="'hex'"
+    [colorLabel]="'groups.layers.symbology_edit.polygon.fillColor' | translate"
+    [colorForm]="form.get('fillColor')"
+    [container]="containerColorPicker"
+  ></app-color-picker>
+  </div>
+
+  <form [formGroup]="form">
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>
+        {{ "groups.layers.symbology_edit.polygon.strokeWidth" | translate }}
+      </mat-label>
+      <input
+        matInput
+        type="number"
+        formControlName="strokeWidth"
+        name="strokeWidth"
+      />
+    </mat-form-field>
+  </form>
+  <div  #containerColorPicker_>
+    <app-color-picker
+    [width]="'100%'"
+    [colorOutputFormat]="'hex'"
+    [colorLabel]="'groups.layers.symbology_edit.polygon.strokeColor' | translate"
+    [colorForm]="form.get('strokeColor')"
+    [container]="containerColorPicker_"
+  ></app-color-picker>
+  </div>
+
+</div>

@@ -1,0 +1,58 @@
+<nb-card
+  status="primary"
+  [nbSpinner]="form.disabled"
+  nbSpinnerSize="large"
+  nbSpinnerStatus="primary"
+>
+  <nb-card-header>
+    <span>
+      {{ "groups.layers.icon.add_icons" | translate }}
+    </span>
+    <button nbButton shape="round" (click)="close()">
+      <nb-icon icon="close"></nb-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="form" *ngIf="form as context">
+      <div class="form-group">
+        <label for="attribution" class="label">{{
+          "groups.layers.icon.image_attributions" | translate
+        }}</label>
+        <input
+          type="text"
+          nbInput
+          formControlName="attribution"
+          fullWidth
+          id="attribution"
+        />
+      </div>
+
+      <app-update-tags [type]="'icons'" [tagsForm]="context.get('tags')">
+      </app-update-tags>
+      <app-file-upload
+        *ngIf="form.get('path')"
+        formControlName="path"
+        [multiple]="true"
+        [accept]="'image/*'"
+      ></app-file-upload>
+      <span *ngIf="hasError('path', 'required')">
+        {{ "groups.layers.icon.image_required" | translate }}
+      </span>
+    </form>
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton (click)="close()" [disabled]="form.disabled">
+      {{ "cancel" | translate }}
+    </button>
+    <button
+      class="cancel"
+      nbButton
+      status="primary"
+      style="margin-left: 10px"
+      [disabled]="!form.valid || form.disabled"
+      (click)="saveIcon()"
+    >
+      {{ "valid" | translate }}
+    </button>
+  </nb-card-footer>
+</nb-card>

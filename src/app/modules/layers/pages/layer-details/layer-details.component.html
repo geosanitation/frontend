@@ -1,0 +1,44 @@
+<nb-card class="right-side-dialog" status="primary">
+  <nb-card-header>
+    <span>{{ "groups.layers.layer_management" | translate }}</span>
+    
+    <button
+      nbButton
+      shape="round"
+      (click)="close()"
+    >
+      <nb-icon icon="close"></nb-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <nb-tabset fullWidth>
+      <nb-tab tabTitle="{{ 'groups.layers.preview' | translate }}" tabIcon="map-outline">
+        <geosanitation-layer-viewer [layer]="layer"></geosanitation-layer-viewer>
+      </nb-tab>
+      <nb-tab tabTitle="{{ 'groups.layers.symbology' | translate }}" tabIcon="color-palette-outline" 
+      *ngIf="store.user?.is_superuser">
+        <geosanitation-layer-style [layer]="layer"></geosanitation-layer-style>
+      </nb-tab>
+      <!-- <nb-tab tabTitle="{{ 'groups.layers.attributes_table' | translate }}" tabIcon="list-outline" *ngIf="store.user?.is_superuser">
+        <geosanitation-layer-fields></geosanitation-layer-fields>
+      </nb-tab> -->
+      <nb-tab tabTitle="{{ 'groups.layers.general' | translate }}" tabIcon="grid-outline" *ngIf="store.user?.is_superuser">
+        <geosanitation-layer-edit [layer]="layer"></geosanitation-layer-edit>
+      </nb-tab>
+    </nb-tabset>
+  </nb-card-body>
+  <!-- <nb-card-footer>
+      <button nbButton (click)="close(true)">
+        {{ data.confirmText }}
+      </button>
+      <button
+        class="cancel"
+        nbButton
+        status="primary"
+        (click)="close(false)"
+        style="margin-left: 10px"
+      >
+        {{ data.cancelText }}
+      </button>
+    </nb-card-footer> -->
+</nb-card>

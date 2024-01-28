@@ -1,0 +1,99 @@
+@import "../../../../@theme/styles/themes.scss";
+
+.search-vp {
+  background-color: #f3f5f6;
+  padding: 20px 20px 0px 20px;
+  border-radius: 10px;
+  .fa-search {
+    font-size: 22px;
+    margin-right: 5px;
+    color: #0d589c;
+  }
+  .fa-times-circle {
+    font-size: 20px;
+    transform: translateY(-4px);
+    color: #0d589c;
+  }
+}
+
+.search-icons {
+  background-color: #f3f5f6;
+  // padding: 20px 20px 0px 20px;
+  border-radius: 10px;
+  .fa-search {
+    font-size: 22px;
+  }
+  .fa-times-circle {
+    font-size: 20px;
+    transform: translateY(-4px);
+  }
+  ::ng-deep .mat-option {
+    height: 55px;
+  }
+}
+
+.actions-icons {
+  margin-bottom: 20px;
+}
+
+.loading-icons {
+  mat-spinner {
+    margin: auto;
+    // margin-top: 40px;
+  }
+}
+
+.all-group-icon {
+  .one-group-icon {
+    margin-bottom: 24px;
+    // background-color: #f3f5f6;
+    // padding: 24px;
+    .one-group-icon-title {
+      color: #0d589c;
+      padding: 14px;
+      border-bottom: 5px solid #0d589c;
+    }
+    .one-icon {
+      height: 108px;
+      text-align: center;
+      position: relative;
+      padding-top: 25px;
+      cursor: pointer;
+      .fa-trash {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        display: none;
+      }
+      .fa-pencil {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: none;
+        path {
+          fill: #000;
+        }
+      }
+      .icon-img {
+        width: 63px;
+        height: 63px;
+      }
+    }
+    .one-icon:hover {
+      background: #f3f5f6;
+      border-radius: 5px;
+      .fa-trash,
+      .fa-pencil {
+        display: block;
+      }
+    }
+    .one-icon-selected {
+      background: #f3f5f6 !important;
+      border-radius: 5px;
+      border: 1px solid #000;
+    }
+  }
+  // padding: 20px 20px 0px 20px;
+  border-radius: 10px;
+  // margin-top: 48px;
+}

@@ -1,0 +1,13 @@
+.right-side-dialog {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    min-width: 50%;
+    nb-card-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+}

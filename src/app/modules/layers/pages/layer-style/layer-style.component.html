@@ -1,0 +1,34 @@
+<div
+  class="content"
+  fxLayout="column"
+  fxLayoutAlign="flex-start center"
+  fxLayoutGap="10px"
+  *ngIf="providerStyle$ | async as style"
+>
+  <button
+    nbButton
+    size="giant"
+    status="primary"
+    (click)="onUpdateInstance(style)"
+  >
+    {{ "groups.layers.edit_style" | translate }}
+  </button>
+  <div fxLayoutGap="30px" fxLayout class="style-item-title">
+    <span class="title">{{ style.name }} </span>
+    <img
+      fxFlex="75px"
+      [src]="environment.backendUrl + style.pictogram"
+      alt=""
+    />
+    <span class="state-badje" *ngIf="style.custom_style">
+      {{ style.custom_style.name }}
+    </span>
+    <span class="state-badje" *ngIf="!style.custom_style">
+      {{ "groups.layers.qml_file" | translate }}
+    </span>
+  </div>
+
+  <div fxLayout>
+    <img fxFlex="100%" [src]="legenUrl | secure | async" alt="" />
+  </div>
+</div>
