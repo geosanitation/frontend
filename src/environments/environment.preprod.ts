@@ -12,8 +12,8 @@ export const environment = {
   production: false,
   global_logo: undefined,
   primaryColor: '#023f5f',
-  backendUrl:'https://wsdemo.geo-sanitation.com',
-  qgisServerUrl:'https://wsdemo.geo-sanitation.com/api/map/wms?map=',
-  frontendUrl: 'https://demo.geo-sanitation.com',
-  mapTilerKey: '<your_maptiler_key>'
+  backendUrl:'https://wsdemo.geosanitation.com',
+  qgisServerUrl:'https://wsdemo.geosanitation.com/api/map/wms?map=',
+  frontendUrl: 'https://demo.geosanitation.com',
+  mapTilerKey: 'rVIl0Rz4h7gQI95TwXdY'
 };

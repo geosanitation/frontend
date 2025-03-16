@@ -2,7 +2,7 @@
 
 A portal dedicated to stakeholders and citizens to facilitate decision-making on urban water management.
 
-A demo version is running at https://demo.geo-sanitation.com.
+A demo version is running at https://demo.geosanitation.com.
 
 ### How to run this project on my machine ?
 
