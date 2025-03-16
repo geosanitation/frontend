@@ -2,7 +2,7 @@
 
 Welcome to the Geosanitation Project! This portal is dedicated to stakeholders and citizens, aiming to facilitate decision-making on urban water management.
 
-You can access a demo version of the project at https://demo.geo-sanitation.com. Currently, the root URL redirects to `/risks-hazards/instamap` for the Instamap demonstration 😁.
+You can access a demo version of the project at https://demo.geosanitation.com. Currently, the root URL redirects to `/risks-hazards/instamap` for the Instamap demonstration 😁.
 
 ![geosanitation-instamap](https://github.com/geosanitation/frontend/assets/43842786/06e0b195-c589-4208-8553-a6cc7364c34a)
 
